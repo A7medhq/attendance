@@ -27,13 +27,13 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
         await _imagePicker.pickImage(source: source, imageQuality: 85);
 
     if (pickedImage != null) {
-      pickedImage!.readAsBytes().then((value) {
+      pickedImage.readAsBytes().then((value) {
         print('image Size: ${value.length / 1024 / 1024}');
         setState(() {
           imageSizeInKB = value.length / 1024;
         });
       });
-      print(pickedImage!.path);
+      print(pickedImage.path);
     }
 
     setState(() {
@@ -140,10 +140,11 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                     height: 60,
                     width: 300,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  if (isLoading) Center(child: CircularProgressIndicator()),
+                  if (isLoading)
+                    const Center(child: CircularProgressIndicator()),
                 ],
               )
             ],

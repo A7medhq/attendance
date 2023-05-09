@@ -10,7 +10,7 @@ class UpdateUserData {
   final _myBox = Hive.box('myBox');
 
   Future<String> updateUserData(String notify) async {
-    Uri uri = Uri.parse('${APILink.baseLink}/hr/employee/update-profile');
+    Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
     final response = await http.post(uri, headers: <String, String>{
       HttpHeaders.authorizationHeader: _myBox.get('token').toString(),
     }, body: {
@@ -40,8 +40,8 @@ class UpdateUserData {
       HttpHeaders.contentTypeHeader: 'multipart/form-data',
       HttpHeaders.authorizationHeader: _myBox.get('token').toString(),
     };
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('${APILink.baseLink}/hr/employee/update-profile'))
+    var request = http.MultipartRequest('POST',
+        Uri.parse('${APILink.baseLink}${APILink.kHRLink}update-profile'))
       ..followRedirects = false
       ..files.add(await http.MultipartFile.fromPath("image", filePath))
       ..headers.addAll(headers);

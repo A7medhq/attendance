@@ -12,7 +12,7 @@ class GetUserInfo {
 
   late var data;
   Future<dynamic> getUserInfo() async {
-    Uri uri = Uri.parse('${APILink.baseLink}/hr/employee/profile');
+    Uri uri = Uri.parse('${APILink.baseLink}${APILink.kHRLink}profile');
     final response = await http.get(uri, headers: <String, String>{
       'X-locale': 'en',
       HttpHeaders.contentTypeHeader: 'application/json',
