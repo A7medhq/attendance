@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-class MyDatePicker extends StatefulWidget {
+class DatePickerCustom extends StatefulWidget {
   TextEditingController? controller;
 
-  MyDatePicker({Key? key, required this.controller}) : super(key: key);
+  DatePickerCustom({Key? key, required this.controller}) : super(key: key);
 
   @override
-  State<MyDatePicker> createState() => _MyDatePickerState();
+  State<DatePickerCustom> createState() => _DatePickerCustomState();
 }
 
-class _MyDatePickerState extends State<MyDatePicker> {
+class _DatePickerCustomState extends State<DatePickerCustom> {
   @override
   Widget build(BuildContext context) {
     return Flexible(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../components/my_button.dart';
+import '../components/main_button_custom.dart';
 import '../components/my_list_tile.dart';
 import '../providers/constants.dart';
 
@@ -56,28 +56,28 @@ class _AdminPermessionRequestScreenState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const MyListTile(
+              const ListTileCustom(
                 title: 'Request ID',
                 subtitle: 'P000012',
               ),
               const SizedBox(
                 height: 40,
               ),
-              const MyListTile(
+              const ListTileCustom(
                 title: 'Employee Name',
                 subtitle: 'Employee Name',
               ),
               const SizedBox(
                 height: 40,
               ),
-              const MyListTile(
+              const ListTileCustom(
                 title: 'Permission Type',
                 subtitle: 'Emergency',
               ),
               const SizedBox(
                 height: 40,
               ),
-              const MyListTile(
+              const ListTileCustom(
                 title: 'Permission Date',
                 subtitle: '20/01/2023',
               ),
@@ -126,11 +126,11 @@ class _AdminPermessionRequestScreenState
               ),
               Row(
                 children: [
-                  MyButton(text: 'Approve', onTap: () {}),
+                  MainButtonCustom(text: 'Approve', onTap: () {}),
                   const SizedBox(
                     width: 10,
                   ),
-                  MyButton(
+                  MainButtonCustom(
                       isOutlined: true,
                       text: 'Reject',
                       backgroudColor: Colors.white,

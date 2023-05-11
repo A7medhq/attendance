@@ -37,7 +37,7 @@ class _DomainScreenState extends State<DomainScreen> {
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
                   labelText: 'Enter your company code',
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.domain,
                   ),
                   border: OutlineInputBorder(
@@ -47,7 +47,7 @@ class _DomainScreenState extends State<DomainScreen> {
               ),
               Text(
                 message,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
               Material(
                 borderRadius: BorderRadius.circular(50),
@@ -64,7 +64,7 @@ class _DomainScreenState extends State<DomainScreen> {
                     ),
                     height: 60,
                     width: double.infinity,
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Next',
                       style: TextStyle(
