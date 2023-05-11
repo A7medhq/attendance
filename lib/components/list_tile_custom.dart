@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MyListTile extends StatelessWidget {
+class ListTileCustom extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const MyListTile({Key? key, required this.title, required this.subtitle})
+  const ListTileCustom({Key? key, required this.title, required this.subtitle})
       : super(key: key);
 
   @override
@@ -16,12 +16,12 @@ class MyListTile extends StatelessWidget {
           title,
           style: TextStyle(fontSize: 19, color: Colors.grey.shade500),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
           subtitle,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
       ],
     );

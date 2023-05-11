@@ -1,6 +1,5 @@
 import 'package:attendance/providers/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class TextButtonWidget extends StatelessWidget {
   TextButtonWidget(
@@ -16,7 +15,7 @@ class TextButtonWidget extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
-          '$text',
+          text,
           style: TextStyle(decoration: textDecoration, color: kPrimaryColor),
         ));
   }

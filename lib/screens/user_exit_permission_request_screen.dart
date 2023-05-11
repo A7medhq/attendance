@@ -1,8 +1,8 @@
-import 'package:attendance/components/my_date_picker.dart';
+import 'package:attendance/components/date_picker_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../components/my_button.dart';
+import '../components/main_button_custom.dart';
 import '../components/my_time_picker.dart';
 import '../providers/constants.dart';
 
@@ -32,8 +32,8 @@ class _UserPermessionRequestScreenState
     inTimeTextFieldController.text =
         DateFormat('h:mm a').format(DateTime.now());
 
-    outTimeTextFieldController.text =
-        DateFormat('h:mm a').format(DateTime.now().add(Duration(hours: 2)));
+    outTimeTextFieldController.text = DateFormat('h:mm a')
+        .format(DateTime.now().add(const Duration(hours: 2)));
 
     super.initState();
   }
@@ -117,7 +117,7 @@ class _UserPermessionRequestScreenState
               const SizedBox(
                 height: 30,
               ),
-              MyDatePicker(controller: dateTextFieldController),
+              DatePickerCustom(controller: dateTextFieldController),
               const SizedBox(
                 height: 20,
               ),
@@ -136,13 +136,13 @@ class _UserPermessionRequestScreenState
               ),
               Row(
                 children: [
-                  MyTimePicker(
+                  TimePickerCustom(
                     controller: inTimeTextFieldController,
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  MyTimePicker(
+                  TimePickerCustom(
                     addedHours: 2,
                     controller: outTimeTextFieldController,
                   ),
@@ -151,7 +151,7 @@ class _UserPermessionRequestScreenState
               const SizedBox(
                 height: 40,
               ),
-              MyButton(
+              MainButtonCustom(
                 text: 'Send Request',
                 onTap: () {},
               )

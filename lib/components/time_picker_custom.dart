@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-class MyTimePicker extends StatefulWidget {
+class TimePickerCustom extends StatefulWidget {
   int? addedHours;
   TextEditingController? controller;
 
-  MyTimePicker({Key? key, required this.controller, this.addedHours})
+  TimePickerCustom({Key? key, required this.controller, this.addedHours})
       : super(key: key);
 
   @override
-  State<MyTimePicker> createState() => _MyTimePickerState();
+  State<TimePickerCustom> createState() => _TimePickerCustomState();
 }
 
-class _MyTimePickerState extends State<MyTimePicker> {
+class _TimePickerCustomState extends State<TimePickerCustom> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -34,8 +34,7 @@ class _MyTimePickerState extends State<MyTimePicker> {
           readOnly: true, // when true user cannot edit text
           onTap: () async {
             TimeOfDay? pickedTime = await showTimePicker(
-              initialTime: TimeOfDay.now()
-                  .addHour(widget.addedHours == null ? 0 : widget.addedHours),
+              initialTime: TimeOfDay.now().addHour(widget.addedHours ?? 0),
               context: context,
             );
 
@@ -63,6 +62,6 @@ class _MyTimePickerState extends State<MyTimePicker> {
 
 extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay addHour(int? hour) {
-    return this.replacing(hour: this.hour + hour!, minute: this.minute);
+    return replacing(hour: this.hour + hour!, minute: minute);
   }
 }
