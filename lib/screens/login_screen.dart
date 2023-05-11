@@ -189,7 +189,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           'Remember me',
                         ),
                         const SizedBox(
-                          width: 50,
+                          width: 10,
                         ),
                         TextButtonWidget(
                           text: 'Forgot password?',
