@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:attendance/components/text_button.dart';
 import 'package:attendance/main.dart';
-import 'package:attendance/providers/constants.dart';
+import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/screens/loading_screen.dart';
 import 'package:attendance/services/login_service.dart';
 import 'package:email_validator/email_validator.dart';
@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../providers/show_snack_bar_custom.dart';
+import '../helpers/show_snack_bar_custom.dart';
 import '../services/auth.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -209,6 +209,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               onTap: () async {
+                                FocusScope.of(context).unfocus();
+
                                 isLoading = true;
                                 setState(() {});
                                 final form = formkey.currentState;

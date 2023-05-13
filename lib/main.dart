@@ -1,4 +1,5 @@
-import 'package:attendance/providers/constants.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/providers/user_data_provider.dart';
 import 'package:attendance/screens/admin_permission_request_screen.dart';
 import 'package:attendance/screens/check_screen.dart';
 import 'package:attendance/screens/dashboard_screen.dart';
@@ -18,6 +19,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:provider/provider.dart';
 
 import 'drawer/my_header_drawer.dart';
 
@@ -28,7 +30,11 @@ void main() async {
   // Open The Box
   var box = await Hive.openBox('myBox');
 
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<UserInformationProvider>(
+        create: (context) => UserInformationProvider()),
+  ], child: const MyApp()));
+
 }
 
 class MyApp extends StatelessWidget {

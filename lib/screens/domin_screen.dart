@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../providers/constants.dart';
+import '../helpers/constants.dart';
 
 class DomainScreen extends StatefulWidget {
   static const id = '/domainScreen';

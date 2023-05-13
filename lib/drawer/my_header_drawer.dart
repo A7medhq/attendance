@@ -1,6 +1,8 @@
-import 'package:attendance/providers/constants.dart';
-import 'package:attendance/services/get_user_information_service.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/models/get_user_data_model.dart';
+import 'package:attendance/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
   const MyHeaderDrawer({Key? key}) : super(key: key);
@@ -10,27 +12,10 @@ class MyHeaderDrawer extends StatefulWidget {
 }
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
-  final GetUserInfo _usersData = GetUserInfo();
-  dynamic data;
 
-  void getUsers() async {
-    data = await _usersData.getUserInfo();
-    if (this.mounted) {
-      setState(() {
-        // Your state change code goes here
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    getUsers();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (data != null) {
       return Material(
         color: kPrimaryColor,
         child: InkWell(
@@ -39,45 +24,60 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
             width: double.infinity,
             height: 200,
             padding: const EdgeInsets.only(top: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  height: 70,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(data['data']['image']),
-                      )),
-                ),
-                Text(
-                  data['data']['name'],
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-                Text(
-                  data['data']['notify_email'],
-                  style: TextStyle(
-                    color: Colors.grey.shade200,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+            child:
+
+
+            Consumer<UserInformationProvider>(
+              builder:  (context, value, child) {
+
+                if (value.state == UserInformationState.Loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (value.state == UserInformationState.Error) {
+                  return const Center(
+                    child: Text('Error'),
+                  );
+                }
+                final Data? userInfo = value.userInformation;
+               if (userInfo!= null) {
+                 return Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Container(
+                       margin: const EdgeInsets.only(bottom: 10),
+                       height: 70,
+                       decoration: BoxDecoration(
+                           shape: BoxShape.circle,
+                           image: DecorationImage(
+                             image: NetworkImage(userInfo.image!),
+                           )),
+                     ),
+                     Text(
+                       userInfo.name!,
+                       style: const TextStyle(
+                           color: Colors.white,
+                           fontWeight: FontWeight.bold,
+                           fontSize: 20),
+                     ),
+                     Text(
+                       userInfo.notifyEmail!,
+                       style: TextStyle(
+                         color: Colors.grey.shade200,
+                         fontSize: 14,
+                       ),
+                     ),
+                   ],
+                 );
+               }
+               else {
+                 return const CircularProgressIndicator();
+               }
+              }
             ),
           ),
         ),
       );
-    } else {
-      return Material(
-          color: kPrimaryColor,
-          child: Container(
-              width: double.infinity,
-              height: 200,
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(child: CircularProgressIndicator())));
-    }
   }
 }

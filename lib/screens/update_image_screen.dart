@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:attendance/components/my_button.dart';
-import 'package:attendance/providers/constants.dart';
+import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

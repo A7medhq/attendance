@@ -1,9 +1,12 @@
-import 'package:attendance/providers/constants.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/models/get_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../components/dashboard_cards.dart';
+import '../providers/user_data_provider.dart';
 import '../services/get_user_information_service.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -15,23 +18,10 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final GetUserInfo _usersData = GetUserInfo();
-  dynamic data;
 
-  void getUsers() async {
-    data = await _usersData.getUserInfo();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    getUsers();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (data != null) {
       return Padding(
         padding:
             const EdgeInsets.only(top: 0, right: 24.0, left: 24.0, bottom: 8),
@@ -46,51 +36,73 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       borderRadius: BorderRadius.circular(18)),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Stack(
-                      children: [
-                        Column(
+                    child: Consumer<UserInformationProvider>(
+                        builder:  (context, value, child) {
+
+
+                          if (value.state == UserInformationState.Loading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (value.state == UserInformationState.Error) {
+                            return const Center(
+                              child: Text('Error'),
+                            );
+                          }
+                          final Data? userInfo = value.userInformation;
+                          if (userInfo!= null) {
+                        return Stack(
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: kPrimaryColor,
-                                  backgroundImage:
-                                      NetworkImage(data['data']['image']),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 32, 8, 8),
-                                  child: Text(data['data']['name'],
-                                      style: kHeadText),
-                                )
-                              ],
-                            ),
-                            const Divider(
-                              color: Colors.grey,
-                            ),
                             Column(
                               children: [
-                                ListTile(
-                                  leading: Icon(
-                                    FontAwesomeIcons.at,
-                                    color: kPrimaryColor,
-                                  ),
-                                  title: Text(data['data']['notify_email']),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor: kPrimaryColor,
+                                      backgroundImage:
+                                          NetworkImage(userInfo.image!),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(8, 32, 8, 8),
+                                      child: Text(userInfo.name!,
+                                          style: kHeadText),
+                                    )
+                                  ],
                                 ),
-                                ListTile(
-                                  leading: Icon(
-                                    FontAwesomeIcons.mobileScreen,
-                                    color: kPrimaryColor,
-                                  ),
-                                  title: Text(data['data']['notify_mobile']),
+                                const Divider(
+                                  color: Colors.grey,
+                                ),
+                                Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(
+                                        FontAwesomeIcons.at,
+                                        color: kPrimaryColor,
+                                      ),
+                                      title: Text(userInfo.notifyEmail!),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(
+                                        FontAwesomeIcons.mobileScreen,
+                                        color: kPrimaryColor,
+                                      ),
+                                      title: Text(userInfo.notifyMobile!),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
+                            ),
                           ],
-                        ),
-                      ],
+                        );
+                          }
+                          else {
+                            return const CircularProgressIndicator();
+                          }
+                      }
                     ),
                   ),
                 ),
@@ -143,13 +155,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       );
-    } else {
-      return Center(
-        child: SpinKitRotatingCircle(
-          color: kPrimaryColor,
-          size: 50.0,
-        ),
-      );
-    }
+
   }
 }

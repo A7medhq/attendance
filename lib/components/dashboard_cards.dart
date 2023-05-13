@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../providers/constants.dart';
+import '../helpers/constants.dart';
 
 class MyCard extends StatelessWidget {
   String title;

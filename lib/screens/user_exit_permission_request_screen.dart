@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../components/my_button.dart';
 import '../components/my_time_picker.dart';
-import '../providers/constants.dart';
+import '../helpers/constants.dart';
 
 class UserPermessionRequestScreen extends StatefulWidget {
   static const id = '/userPermessionRequestScreen';

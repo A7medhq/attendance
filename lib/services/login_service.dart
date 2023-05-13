@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../providers/strings.dart';
+import '../helpers/strings.dart';
 
 class AuthServiceAPI {
   // late var data;
