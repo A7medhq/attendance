@@ -1,11 +1,15 @@
 import 'package:attendance/main.dart';
-import 'package:attendance/providers/constants.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/models/response_model.dart';
 import 'package:attendance/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../models/get_user_data_model.dart';
+import '../providers/user_data_provider.dart';
 import '../services/get_user_information_service.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -17,47 +21,37 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  final _myBox = Hive.box('myBox');
-  String? _token;
+  bool? status;
 
-  final GetUserInfo _usersData = GetUserInfo();
-  dynamic data;
-
-  @override
-  void initState() {
-    _token = _myBox.get('token');
-
-    getUsers();
-    super.initState();
-  }
-
-  void getUsers() async {
-    data = await _usersData.getUserInfo();
+  Future<void> getCurrentUser() async {
+    status = await GetUserInfo.checkUserLoggedIn();
     setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (_token != null) {
-      if (data != null) {
-        if (data['status'] == 'success') {
-          return const MyHomePage();
-        } else {
-          return const LogInScreen();
-        }
-      } else {
-        return Container(
-          color: Colors.white,
-          child: Center(
-            child: SpinKitRotatingCircle(
-              color: kPrimaryColor,
-              size: 50.0,
-            ),
-          ),
-        );
-      }
-    } else {
-      return const LogInScreen();
-    }
+  void initState() {
+    super.initState();
+    getCurrentUser();
   }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    if (status != null) {
+      if (status!) {
+        Provider.of<UserInformationProvider>(context, listen: false).getUserInformation();
+        return const MyHomePage();
+      } else {
+        return const LogInScreen();
+      }
+    }
+    {
+      return const Scaffold(
+          body: Center(
+              child: SpinKitSpinningLines(
+                color: Color(0xff4D455D),
+                size: 50.0,
+              )));
+    }}
 }

@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../providers/strings.dart';
+import '../helpers/strings.dart';
 
 class AuthServiceAPI {
   final _myBox = Hive.box('myBox');

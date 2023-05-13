@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/get_user_data_model.dart';
-import '../providers/strings.dart';
+import '../helpers/strings.dart';
 
 class NewGetUserData {
   UserData? user;

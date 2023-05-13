@@ -1,6 +1,5 @@
 import 'package:attendance/components/text_button.dart';
-import 'package:attendance/providers/constants.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
