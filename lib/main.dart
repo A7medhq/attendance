@@ -330,7 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
             } else if (id == 6) {
               currentPage = DrawerSections.loanRequest;
             } else if (id == -1) {
-              AuthServiceAPI().logout().then((value) {
+              AuthServiceAPI.logout().then((value) {
                 loggedout = value;
                 if (loggedout == true) {
                   Navigator.pushReplacement(

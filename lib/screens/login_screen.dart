@@ -32,7 +32,7 @@ class _LogInScreenState extends State<LogInScreen> {
   bool? isBiometricsEnabled;
   String message = '';
   bool isValidate = true;
-  AuthServiceAPI authService = AuthServiceAPI();
+
   bool isLoading = false;
   @override
   void initState() {
@@ -214,7 +214,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 isLoading = true;
                                 setState(() {});
                                 final form = formkey.currentState;
-                                var res = await authService.sendLoginData(
+                                var res = await AuthServiceAPI.sendLoginData(
                                     email: emailController.text,
                                     password: passwordController.text);
                                 if (form!.validate()) {

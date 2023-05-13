@@ -8,10 +8,13 @@ import 'package:http/http.dart' as http;
 import '../models/get_user_data_model.dart';
 import '../helpers/strings.dart';
 
-class NewGetUserData {
-  UserData? user;
-  final _myBox = Hive.box('myBox');
-  Future<UserData?> getUserInfo() async {
+class GetUserProfile {
+
+ static Future<UserData?> getUserProfile() async {
+
+   UserData? user;
+   final _myBox = Hive.box('myBox');
+
     Uri uri = Uri.parse('${APILink.baseLink}${APILink.kHRLink}profile');
     final response = await http.get(uri, headers: <String, String>{
       'X-locale': 'en',

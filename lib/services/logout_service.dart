@@ -8,10 +8,12 @@ import 'package:http/http.dart' as http;
 import '../helpers/strings.dart';
 
 class AuthServiceAPI {
-  final _myBox = Hive.box('myBox');
 
-  Future<bool?> logout() async {
-    Uri uri = Uri.parse('${APILink.baseLink}/destroy');
+ static Future<bool?> logout() async {
+   final _myBox = Hive.box('myBox');
+
+
+   Uri uri = Uri.parse('${APILink.baseLink}/destroy');
     final response = await http.get(uri, headers: <String, String>{
       'X-locale': 'en',
       HttpHeaders.authorizationHeader: _myBox.get('token')

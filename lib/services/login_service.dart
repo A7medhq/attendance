@@ -6,7 +6,7 @@ import '../helpers/strings.dart';
 
 class AuthServiceAPI {
   // late var data;
-  Future<dynamic> sendLoginData(
+  static Future<dynamic> sendLoginData(
       {required String email, required String password}) async {
     Uri uri = Uri.parse('${APILink.baseLink}/login');
     final response = await http.post(uri, headers: <String, String>{
