@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late TextEditingController _bank_address;
 
   void getUserData() async {
-    data = await NewGetUserData().getUserInfo();
+    data = await GetUserProfile.getUserProfile();
 
     if (data != null) {
       _name = TextEditingController(text: data!.data!.name!);
@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               if (_notify_mobile.text.isNotEmpty) {
-                UpdateUserData()
+                UpdateUserData
                     .updateUserData(
                   _notify_mobile.text,
                 )

@@ -7,10 +7,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class UpdateUserData {
+
+static  Future<String> updateUserData(String notify) async {
   final _myBox = Hive.box('myBox');
 
-  Future<String> updateUserData(String notify) async {
-    Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
+
+  Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
     final response = await http.post(uri, headers: <String, String>{
       HttpHeaders.authorizationHeader: _myBox.get('token').toString(),
     }, body: {
@@ -34,8 +36,11 @@ class UpdateUserData {
     }
   }
 
-  Future<http.StreamedResponse> updateUserImage(String filePath) async {
-    var headers = {
+static Future<http.StreamedResponse> updateUserImage(String filePath) async {
+  final _myBox = Hive.box('myBox');
+
+
+  var headers = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.contentTypeHeader: 'multipart/form-data',
       HttpHeaders.authorizationHeader: _myBox.get('token').toString(),

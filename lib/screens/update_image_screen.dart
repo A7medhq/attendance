@@ -102,7 +102,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
 
                       if (_imageFile != null) {
                         if (imageSizeInKB < 2048) {
-                          var response = await UpdateUserData()
+                          var response = await UpdateUserData
                               .updateUserImage(_imageFile!.path);
 
                           if (response.statusCode == 200) {
