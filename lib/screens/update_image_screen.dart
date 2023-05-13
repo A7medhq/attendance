@@ -82,7 +82,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  MyButton(
+                  MainButtonCustom(
                     onTap: () {
                       takePhoto(ImageSource.gallery);
                     },
@@ -94,7 +94,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  MyButton(
+                  MainButtonCustom(
                     onTap: () async {
                       setState(() {
                         isLoading = true;

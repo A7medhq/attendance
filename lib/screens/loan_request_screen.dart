@@ -1,11 +1,11 @@
 import 'package:attendance/components/head_text.dart';
-import 'package:attendance/components/my_button.dart';
+import 'package:attendance/components/main_button_custom.dart';
 import 'package:attendance/components/my_text_field.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../components/my_date_picker.dart';
+import '../components/date_picker_custom.dart';
 
 class LoanRequestScreen extends StatefulWidget {
   static const id = '/loanRequestScreen';
@@ -50,18 +50,18 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'Enter the loan',
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: MyTextField(
+                  child: TextFieldCustom(
                       hintText: 'amount', controller: TextEditingController()),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'Loans reason',
                   ),
@@ -107,39 +107,39 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
                 Visibility(
                   visible: isVisible,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: MyTextField(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: TextFieldCustom(
                       controller: TextEditingController(),
                       hintText: 'enter your reason',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'Numbers of installments',
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: MyTextField(
+                  child: TextFieldCustom(
                       hintText: 'for example: 3',
                       controller: TextEditingController()),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'Single installment amount',
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: MyTextField(
+                  child: TextFieldCustom(
                       hintText: 'for example: 50\$',
                       controller: TextEditingController()),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'First date installment',
                   ),
@@ -147,11 +147,11 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
                 const SizedBox(
                   height: 8,
                 ),
-                MyDatePicker(
+                DatePickerCustom(
                   controller: startDateTextFieldController,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextWidget(
                     text: 'Start date',
                   ),
@@ -159,15 +159,15 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
                 const SizedBox(
                   height: 8,
                 ),
-                MyDatePicker(
+                DatePickerCustom(
                   controller: startDateTextFieldController,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 24.0),
+                  padding: const EdgeInsets.only(top: 24.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MyButton(
+                      MainButtonCustom(
                         text: 'Send',
                       ),
                     ],

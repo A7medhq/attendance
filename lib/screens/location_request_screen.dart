@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:attendance/components/my_date_picker.dart';
+import 'package:attendance/components/date_picker_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
-import '../components/my_button.dart';
+import '../components/main_button_custom.dart';
 import '../components/my_text_field.dart';
 
 class LocationRequestScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _LocationRequestScreenState extends State<LocationRequestScreen> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
+      print("ERROR$error");
     });
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -51,7 +51,7 @@ class _LocationRequestScreenState extends State<LocationRequestScreen> {
         DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     getUserCurrentLocation().then((value) async {
-      print(value.latitude.toString() + " " + value.longitude.toString());
+      print("${value.latitude} ${value.longitude}");
       _myPosition = CameraPosition(
         target: LatLng(value.latitude, value.longitude),
         zoom: 18,
@@ -95,27 +95,27 @@ class _LocationRequestScreenState extends State<LocationRequestScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MyTextField(
+              TextFieldCustom(
                 prefixIconData: FontAwesomeIcons.calendar,
                 controller: locationTextFieldController,
                 hintText: 'Gaza Strip',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Row(
                 children: [
-                  MyDatePicker(controller: startDateTextFieldController),
+                  DatePickerCustom(controller: startDateTextFieldController),
                   const SizedBox(
                     width: 10,
                   ),
-                  MyDatePicker(controller: endDateTextFieldController),
+                  DatePickerCustom(controller: endDateTextFieldController),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
-              MyButton(
+              MainButtonCustom(
                 text: 'Send Request',
               )
             ],

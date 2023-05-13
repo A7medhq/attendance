@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
 
-class MyTextField extends StatelessWidget {
+class TextFieldCustom extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool isReadOnly;
@@ -11,7 +11,7 @@ class MyTextField extends StatelessWidget {
   final Function(String)? onChanged;
   final double? width;
   final double? height;
-  const MyTextField(
+  const TextFieldCustom(
       {Key? key,
       required this.hintText,
       required this.controller,

@@ -21,7 +21,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
 
-import 'drawer/my_header_drawer.dart';
+import 'drawer/header_drawer.dart';
 
 void main() async {
   // Initialize Hive
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
-              children: [const MyHeaderDrawer(), myDrawerList()],
+              children: [const HeaderDrawer(), myDrawerList()],
             ),
           ),
         ),

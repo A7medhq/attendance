@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           backgroundColor: Colors.white,
-          body: ListView(
+          body: Column(
             children: [
               Container(
                 height: 300,
@@ -115,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 120,
                         width: 110,
                         child: Stack(children: [
@@ -197,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             visible: isEditNameVisible,
                             child: Padding(
                               padding: const EdgeInsets.all(8),
-                              child: MyTextField(
+                              child: TextFieldCustom(
                                 width: 200,
                                 height: 50,
                                 controller: _name,
@@ -240,7 +240,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: [
                     ListTile(
@@ -281,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       visible: isEditMobileVisible,
                       child: Padding(
                         padding: const EdgeInsets.all(8),
-                        child: MyTextField(
+                        child: TextFieldCustom(
                           controller: _notify_mobile,
                           hintText: 'Enter your mobile number',
                         ),

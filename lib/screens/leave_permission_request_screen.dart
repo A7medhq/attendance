@@ -1,6 +1,6 @@
 import 'package:attendance/components/head_text.dart';
-import 'package:attendance/components/my_button.dart';
-import 'package:attendance/components/my_date_picker.dart';
+import 'package:attendance/components/main_button_custom.dart';
+import 'package:attendance/components/date_picker_custom.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -130,7 +130,7 @@ class _LeavePermissionRequestScreenState
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: InkWell(
                   child: Container(
                     padding: const EdgeInsets.all(8),
@@ -164,18 +164,18 @@ class _LeavePermissionRequestScreenState
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: TextWidget(
                   text: 'Enter number of days',
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: MyTextField(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: TextFieldCustom(
                   controller: numOfDaysCont,
                   hintText: '0',
                   onChanged: (value) {
-                    if (value.length > 0) {
+                    if (value.isNotEmpty) {
                       setState(() {
                         endDateCont.text = DateFormat('yyyy-MM-dd').format(
                             DateTime.parse(startDateTextFieldController.text)
@@ -189,21 +189,21 @@ class _LeavePermissionRequestScreenState
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: TextWidget(
                   text: 'Your permission balance',
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: MyTextField(
+                child: TextFieldCustom(
                   controller: balanceCont,
                   hintText: '7',
                   isEnabled: false,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: TextWidget(
                   text: 'Enter start date',
                 ),
@@ -211,11 +211,11 @@ class _LeavePermissionRequestScreenState
               const SizedBox(
                 height: 16,
               ),
-              MyDatePicker(
+              DatePickerCustom(
                 controller: startDateTextFieldController,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: TextWidget(
                   text: 'End date',
                 ),
@@ -223,7 +223,7 @@ class _LeavePermissionRequestScreenState
               const SizedBox(
                 height: 16,
               ),
-              MyTextField(
+              TextFieldCustom(
                 controller: endDateCont,
                 hintText: endDateCont.text,
                 isEnabled: false,
@@ -231,7 +231,7 @@ class _LeavePermissionRequestScreenState
               const SizedBox(
                 height: 30,
               ),
-              MyButton(
+              MainButtonCustom(
                 onTap: () {},
                 text: 'Send request',
               ),

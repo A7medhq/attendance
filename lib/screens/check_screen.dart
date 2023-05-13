@@ -106,7 +106,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MyButton(text: 'Check-In', onTap: () {}),
+              MainButtonCustom(text: 'Check-In', onTap: () {}),
               SizedBox(
                 height: 12,
               ),

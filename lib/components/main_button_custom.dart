@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
 
-class MyButton extends StatefulWidget {
+class MainButtonCustom extends StatefulWidget {
   final Function()? onTap;
   final String text;
   final Color? backgroudColor;
@@ -11,7 +11,7 @@ class MyButton extends StatefulWidget {
   double? width;
   double? height;
 
-  MyButton(
+  MainButtonCustom(
       {Key? key,
       this.onTap,
       required this.text,
@@ -23,10 +23,10 @@ class MyButton extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<MyButton> createState() => _MyButtonState();
+  State<MainButtonCustom> createState() => _MainButtonCustomState();
 }
 
-class _MyButtonState extends State<MyButton> {
+class _MainButtonCustomState extends State<MainButtonCustom> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -54,9 +54,8 @@ class _MyButtonState extends State<MyButton> {
                         : BorderStyle.none),
                 borderRadius: BorderRadius.circular(50),
               ),
-              height:
-                  widget.height == null ? widget.height = 60 : widget.height,
-              width: widget.width == null ? double.infinity : widget.width,
+              height: widget.height ?? (widget.height = 60),
+              width: widget.width ?? double.infinity,
               child: Center(
                   child: Text(
                 widget.text,

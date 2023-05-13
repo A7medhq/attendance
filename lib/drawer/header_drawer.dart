@@ -1,17 +1,17 @@
-import 'package:attendance/helpers/constants.dart';
-import 'package:attendance/models/get_user_data_model.dart';
-import 'package:attendance/providers/user_data_provider.dart';
+import 'package:attendance/providers/constants.dart';
+import 'package:attendance/services/get_user_information_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MyHeaderDrawer extends StatefulWidget {
-  const MyHeaderDrawer({Key? key}) : super(key: key);
+class HeaderDrawer extends StatefulWidget {
+  const HeaderDrawer({Key? key}) : super(key: key);
 
   @override
-  State<MyHeaderDrawer> createState() => _MyHeaderDrawerState();
+  State<HeaderDrawer> createState() => _HeaderDrawerState();
 }
 
-class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
+class _HeaderDrawerState extends State<HeaderDrawer> {
+
 
 
   @override
