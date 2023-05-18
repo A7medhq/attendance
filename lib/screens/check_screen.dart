@@ -33,7 +33,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
+      print("ERROR$error");
     });
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -56,7 +56,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
     getDeviceInfo();
 
     getUserCurrentLocation().then((value) async {
-      print(value.latitude.toString() + " " + value.longitude.toString());
+      print("${value.latitude} ${value.longitude}");
       _myPosition = CameraPosition(
         target: LatLng(value.latitude, value.longitude),
         zoom: 18,
@@ -95,7 +95,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
             },
             markers: {
               Marker(
-                  markerId: MarkerId('marker'),
+                  markerId: const MarkerId('marker'),
                   position: LatLng(_myPosition.target.latitude,
                       _myPosition.target.longitude))
             },
@@ -107,7 +107,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               MainButtonCustom(text: 'Check-In', onTap: () {}),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Row(

@@ -7,14 +7,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class UpdateUserData {
+  static Future<String> updateUserData(String notify) async {
+    final myBox = Hive.box('myBox');
 
-static  Future<String> updateUserData(String notify) async {
-  final _myBox = Hive.box('myBox');
-
-
-  Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
+    Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
     final response = await http.post(uri, headers: <String, String>{
-      HttpHeaders.authorizationHeader: _myBox.get('token').toString(),
+      HttpHeaders.authorizationHeader: myBox.get('token').toString(),
     }, body: {
       "notify_mobile": notify,
     });
@@ -36,14 +34,13 @@ static  Future<String> updateUserData(String notify) async {
     }
   }
 
-static Future<http.StreamedResponse> updateUserImage(String filePath) async {
-  final _myBox = Hive.box('myBox');
+  static Future<http.StreamedResponse> updateUserImage(String filePath) async {
+    final myBox = Hive.box('myBox');
 
-
-  var headers = {
+    var headers = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.contentTypeHeader: 'multipart/form-data',
-      HttpHeaders.authorizationHeader: _myBox.get('token').toString(),
+      HttpHeaders.authorizationHeader: myBox.get('token').toString(),
     };
     var request = http.MultipartRequest('POST',
         Uri.parse('${APILink.baseLink}${APILink.kHRLink}update-profile'))
