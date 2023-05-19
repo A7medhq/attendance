@@ -1,5 +1,4 @@
 import 'package:attendance/helpers/constants.dart';
-import 'package:attendance/providers/image_picker_provider.dart';
 import 'package:attendance/providers/user_data_provider.dart';
 import 'package:attendance/screens/admin_permission_request_screen.dart';
 import 'package:attendance/screens/check_screen.dart';
@@ -29,12 +28,11 @@ void main() async {
 
   // Open The Box
   var box = await Hive.openBox('myBox');
-
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<UserInformationProvider>(
         create: (context) => UserInformationProvider()),
-    ChangeNotifierProvider<ImagePickerProvider>(
-        create: (context) => ImagePickerProvider()),
+    // ChangeNotifierProvider<ImagePickerProvider>(
+    //     create: (context) => ImagePickerProvider()),
   ], child: const MyApp()));
 }
 

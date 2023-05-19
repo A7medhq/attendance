@@ -35,8 +35,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       if (status!) {
         Provider.of<UserInformationProvider>(context, listen: false)
             .getUserInformation();
-// Provider.of<ImagePickerProvider>(context, listen: false)
-//             .getImageFromGallery();
+        // Provider.of<ImagePickerProvider>(context, listen: false)
+        //     .getImageFromGallery();
         return const MyHomePage();
       } else {
         return const LogInScreen();
