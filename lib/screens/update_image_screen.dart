@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
+import 'package:attendance/providers/user_data_provider.dart';
+import 'package:provider/provider.dart';
 import '../components/text_button.dart';
 import '../components/text_field_custom.dart';
 import '../helpers/constants.dart';
@@ -22,33 +24,13 @@ class UpdateImageScreen extends StatefulWidget {
 }
 
 class _UpdateImageScreenState extends State<UpdateImageScreen> {
-  late TextEditingController _notify_mobile;
+   TextEditingController _notify_mobile = TextEditingController();
   XFile? _imageFile;
   UserData? data;
   final ImagePicker _imagePicker = ImagePicker();
   // final UpdateUserData _updateUserData = UpdateUserData();
   bool isLoading = false;
   double imageSizeInKB = 0;
-
-  void getUserData() async {
-    ResponseModel response = await GetUserInfo.getUserInfo();
-    if (response.message == 'success') {
-      if (response.data is UserData) {
-        data = response.data as UserData?;
-
-        if (data != null) {
-          _notify_mobile =
-              TextEditingController(text: data!.data!.notifyMobile!);
-
-          setState(() {});
-        }
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
 
   void takePhoto(ImageSource source) async {
     final pickedImage =
@@ -72,8 +54,6 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
   @override
   void initState() {
     super.initState();
-    // _notify_mobile = TextEditingController(text: data!.data!.notifyMobile);
-    getUserData();
   }
 
   @override
@@ -121,10 +101,29 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
               const SizedBox(
                 height: 30,
               ),
-              TextFieldCustom(
-                hintText: 'Enter your mobile number',
-                controller: _notify_mobile,
-                labelText: 'Mobile number',
+              Consumer<UserInformationProvider>(
+                builder: (context,value,child) {
+
+    if (value.state == UserInformationState.Loading) {
+    return const Center(
+    child: CircularProgressIndicator(),
+    );
+    }
+    if (value.state == UserInformationState.Error) {
+    return const Center(
+    child: Text('Error'),
+    );
+    }
+    final Data? userInfo = value.userInformation;
+    if (userInfo != null) {
+                  return TextFieldCustom(
+                    hintText: 'Enter your mobile number',
+                    controller: TextEditingController(text: userInfo.notifyMobile),
+                    labelText: 'Mobile number',
+                  );
+                }else{
+      return CircularProgressIndicator();
+    }}
               ),
               // const SizedBox(
               //   height: 100,
@@ -159,6 +158,16 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Updated successfully')));
+
+
+                        if(mounted) {
+                          Provider.of<UserInformationProvider>(context,
+                              listen: false)
+                              .getUserInformation();
+                        }
+
+
+
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
