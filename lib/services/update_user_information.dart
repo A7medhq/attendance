@@ -10,7 +10,7 @@ class UpdateUserData {
   static Future<String> updateUserData(String notify) async {
     final myBox = Hive.box('myBox');
 
-    Uri uri = Uri.parse('${APILink.baseLink}}${APILink.kHRLink}update-profile');
+    Uri uri = Uri.parse('${APILink.baseLink}${APILink.kHRLink}update-profile');
     final response = await http.post(uri, headers: <String, String>{
       HttpHeaders.authorizationHeader: myBox.get('token').toString(),
     }, body: {
