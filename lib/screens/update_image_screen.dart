@@ -24,7 +24,7 @@ class UpdateImageScreen extends StatefulWidget {
 }
 
 class _UpdateImageScreenState extends State<UpdateImageScreen> {
-   TextEditingController _notify_mobile = TextEditingController();
+  final TextEditingController _notify_mobile = TextEditingController();
   XFile? _imageFile;
   UserData? data;
   final ImagePicker _imagePicker = ImagePicker();
@@ -102,29 +102,29 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                 height: 30,
               ),
               Consumer<UserInformationProvider>(
-                builder: (context,value,child) {
-
-    if (value.state == UserInformationState.Loading) {
-    return const Center(
-    child: CircularProgressIndicator(),
-    );
-    }
-    if (value.state == UserInformationState.Error) {
-    return const Center(
-    child: Text('Error'),
-    );
-    }
-    final Data? userInfo = value.userInformation;
-    if (userInfo != null) {
+                  builder: (context, value, child) {
+                if (value.state == UserInformationState.Loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (value.state == UserInformationState.Error) {
+                  return const Center(
+                    child: Text('Error'),
+                  );
+                }
+                final Data? userInfo = value.userInformation;
+                if (userInfo != null) {
                   return TextFieldCustom(
                     hintText: 'Enter your mobile number',
-                    controller: TextEditingController(text: userInfo.notifyMobile),
+                    controller:
+                        TextEditingController(text: userInfo.notifyMobile),
                     labelText: 'Mobile number',
                   );
-                }else{
-      return CircularProgressIndicator();
-    }}
-              ),
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              }),
               // const SizedBox(
               //   height: 100,
               // ),
@@ -159,15 +159,11 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                             const SnackBar(
                                 content: Text('Updated successfully')));
 
-
-                        if(mounted) {
+                        if (mounted) {
                           Provider.of<UserInformationProvider>(context,
-                              listen: false)
+                                  listen: false)
                               .getUserInformation();
                         }
-
-
-
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
