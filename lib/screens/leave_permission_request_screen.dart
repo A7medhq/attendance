@@ -6,12 +6,12 @@ import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/models/active_leave_types_model.dart';
 import 'package:attendance/providers/leave_types_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../components/text_field_custom.dart';
+import '../helpers/constants.dart';
 
 class LeavePermissionRequestScreen extends StatefulWidget {
   static const id = '/leavePermissionRequestScreen';

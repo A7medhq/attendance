@@ -5,6 +5,7 @@ import '../helpers/constants.dart';
 class TextFieldCustom extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final String? labelText;
   final bool isReadOnly;
   final bool? isEnabled;
   final IconData? prefixIconData;
@@ -20,13 +21,14 @@ class TextFieldCustom extends StatelessWidget {
       this.prefixIconData,
       this.onChanged,
       this.width,
-      this.height})
+      this.height,
+      this.labelText})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width == null ? double.infinity : width,
+      width: width ?? double.infinity,
       height: height,
       child: TextField(
           onChanged: onChanged,
@@ -34,6 +36,7 @@ class TextFieldCustom extends StatelessWidget {
           readOnly: isReadOnly,
           enabled: isEnabled,
           decoration: InputDecoration(
+            labelText: labelText,
             fillColor: Colors.white,
             filled: true,
             hintText: hintText,

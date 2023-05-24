@@ -19,7 +19,6 @@ import 'package:attendance/services/auth.dart';
 import 'package:attendance/services/logout_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +31,6 @@ void main() async {
 
   // Open The Box
   var box = await Hive.openBox('myBox');
-
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<UserInformationProvider>(
         create: (context) => UserInformationProvider()),
@@ -42,7 +40,6 @@ void main() async {
         create: (context) => LeaveTypesProvider()), ChangeNotifierProvider<CheckStatusProvider>(
         create: (context) => CheckStatusProvider()),
   ], child: const MyApp()));
-
 }
 
 class MyApp extends StatelessWidget {
@@ -198,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/notifications');
                 },
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.bell,
                   size: 24,
                 ))

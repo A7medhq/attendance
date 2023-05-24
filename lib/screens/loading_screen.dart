@@ -6,8 +6,6 @@ import 'package:attendance/providers/leave_types_provider.dart';
 import 'package:attendance/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../models/get_user_data_model.dart';
@@ -37,8 +35,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getCurrentUser();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     if (status != null) {
@@ -56,8 +52,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
       return const Scaffold(
           body: Center(
               child: SpinKitSpinningLines(
-                color: Color(0xff4D455D),
-                size: 50.0,
-              )));
-    }}
+        color: Color(0xff4D455D),
+        size: 50.0,
+      )));
+    }
+  }
 }
