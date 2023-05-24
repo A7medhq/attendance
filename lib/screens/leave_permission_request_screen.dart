@@ -1,9 +1,14 @@
 import 'package:attendance/components/head_text.dart';
 import 'package:attendance/components/main_button_custom.dart';
 import 'package:attendance/components/date_picker_custom.dart';
+import 'package:attendance/components/text_field_custom.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/models/active_leave_types_model.dart';
+import 'package:attendance/providers/leave_types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../components/text_field_custom.dart';
 import '../helpers/constants.dart';
@@ -19,21 +24,13 @@ class LeavePermissionRequestScreen extends StatefulWidget {
 
 class _LeavePermissionRequestScreenState
     extends State<LeavePermissionRequestScreen> {
-  bool selctedValue = false;
+  bool selectedValue = false;
   Color leaveTypeBackgroundColor = kDarkColor;
   TextEditingController numOfDaysCont = TextEditingController(text: '');
   TextEditingController balanceCont = TextEditingController();
   TextEditingController endDateCont = TextEditingController();
   TextEditingController startDateTextFieldController = TextEditingController();
-  List<String> permissionItemsTypes = [
-    "Pilgrimage leave",
-    "Wife death Leave",
-    "Wedding party Leave",
-    "Death leave (1st level relation)",
-    'Husband death leave (non muslim)',
-    'Husband death leave (muslim)',
-    'Annual leave',
-  ];
+
   @override
   void initState() {
     startDateTextFieldController.text =
@@ -74,22 +71,46 @@ class _LeavePermissionRequestScreenState
                           color: Colors.grey[600],
                         ),
                         Expanded(
-                          child: ListView.builder(
-                            controller: controller,
-                            itemCount: permissionItemsTypes.length,
-                            itemBuilder: (_, index) {
-                              return InkWell(
-                                onTap: () {
-                                  print(permissionItemsTypes[index]);
-                                },
-                                child: Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: Text(permissionItemsTypes[index]),
-                                  ),
-                                ),
-                              );
-                            },
+                          child: Consumer<LeaveTypesProvider>(
+                            builder: (context,value,child) {
+
+
+
+                              if (value.state == LeaveTypesProviderState.Loading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              if (value.state == LeaveTypesProviderState.Error) {
+                                return const Center(
+                                  child: Text('Error'),
+                                );
+                              }
+                              final List<LeaveTypes>? leaveTypes = value.leaveTypes;
+
+                              if (leaveTypes!=null) {
+                                return ListView.builder(
+                                  controller: controller,
+                                  itemCount: leaveTypes.length,
+                                  itemBuilder: (_, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        print(leaveTypes[index].description);
+                                      },
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: Text(leaveTypes[index].description),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                              else {
+                                return const CircularProgressIndicator();
+                              }
+                            }
                           ),
                         ),
                       ],
@@ -137,9 +158,9 @@ class _LeavePermissionRequestScreenState
                         border:
                             Border.all(color: Colors.grey.shade400, width: 1),
                         borderRadius: BorderRadius.circular(8)),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Flexible(
                           child: FittedBox(
                             fit: BoxFit.contain,

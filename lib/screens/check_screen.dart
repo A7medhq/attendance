@@ -2,13 +2,21 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/providers/check_in_out_status_provider.dart';
+import 'package:attendance/services/check_in_out_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../components/check_in_out_container.dart';
+import '../helpers/show_snack_bar_custom.dart';
+import '../models/admin_info_model.dart';
+import '../models/logrow_model.dart';
+import '../providers/admin_data_provider.dart';
 
 class CheckInOutScreen extends StatefulWidget {
   static const id = '/checkInOutScreen';
@@ -106,8 +114,84 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MainButtonCustom(text: 'Check-In', onTap: () {}),
-              const SizedBox(
+              Consumer<CheckStatusProvider>(
+                builder: (context,value,child) {
+
+                  if (value.state == CheckStatusState.Loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (value.state == CheckStatusState.Error) {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  final LogRawModel? checkStatus = value.checkStatus;
+
+                  if (checkStatus!= null) {
+
+                    Color btnColor;
+                    String btnText;
+
+                    switch(checkStatus.errors.recordType) {
+                      case 0: {
+                        btnColor = Colors.black;
+                        btnText = 'No Location for this user';
+                      }
+                      break;
+
+                      case 1: {
+                        btnColor = Colors.red;
+                        btnText = 'CHECK OUT';
+                      }
+                      break;
+                      case 2: {
+                        btnColor = kPrimaryColor;
+                        btnText = 'CHECK IN';
+                      }
+                      break;
+                      case 3: {
+                        btnColor = kPrimaryColor;
+                        btnText = 'BREK IN';
+                      }
+                      break;case 4: {
+                      btnColor = Colors.red;
+                      btnText = 'BREK OUT';
+                      }
+                      break;
+
+                      default: {
+                        btnColor = Colors.red;
+                        btnText = '';
+                      }
+                      break;
+                    }
+
+                  return MainButtonCustom(text: btnText,backgroudColor: btnColor, onTap: () async {
+                    try{
+
+                      getUserCurrentLocation().then((pos) async{
+                        final logRaw = await CheckService.sendLocationToCheck(longitude: pos.longitude.toString(), latitude: pos.latitude.toString());
+                        LogRawModel res = logRaw.data;
+
+                        if(mounted) {
+                          showSnackBar(res.errors.errorDescription,context, color: res.errors.errorCode == 0 ? Colors.green : Colors.red);
+                        }
+
+                      });
+
+                    }catch (e) {
+                      print(e);
+                    }
+                  }); }
+                  else {
+                    return const CircularProgressIndicator();
+                  }
+                }
+              ),
+
+              SizedBox(
                 height: 12,
               ),
               Row(
@@ -117,7 +201,6 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                     icon: FontAwesomeIcons.arrowRightToBracket,
                     title: "Last Check-In",
                     date: 'Mar 12-05-2022',
-                    isEnabled: true,
                   ),
                   const SizedBox(
                     width: 15,

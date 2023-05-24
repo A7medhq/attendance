@@ -1,4 +1,7 @@
 import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/providers/admin_data_provider.dart';
+import 'package:attendance/providers/check_in_out_status_provider.dart';
+import 'package:attendance/providers/leave_types_provider.dart';
 import 'package:attendance/providers/user_data_provider.dart';
 import 'package:attendance/screens/admin_permission_request_screen.dart';
 import 'package:attendance/screens/check_screen.dart';
@@ -31,8 +34,11 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<UserInformationProvider>(
         create: (context) => UserInformationProvider()),
-    // ChangeNotifierProvider<ImagePickerProvider>(
-    //     create: (context) => ImagePickerProvider()),
+    ChangeNotifierProvider<AdminInformationProvider>(
+        create: (context) => AdminInformationProvider()),
+    ChangeNotifierProvider<LeaveTypesProvider>(
+        create: (context) => LeaveTypesProvider()), ChangeNotifierProvider<CheckStatusProvider>(
+        create: (context) => CheckStatusProvider()),
   ], child: const MyApp()));
 }
 
