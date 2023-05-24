@@ -222,28 +222,32 @@ class _LogInScreenState extends State<LogInScreen> {
                                 }
                                 if (res != null) {
                                   if (res['status'] == 'success') {
-                                    showSnackBar("${res['message']}", context,
+    if (mounted){ showSnackBar("${res['message']}", context,
                                         color: kPrimaryColor);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const LoadingScreen()));
+                                                const LoadingScreen())); }
                                     _myBox.put('token',
                                         'Bearer ${res['data']['token']}');
+    print('userID: ${res['data']['user']['id']}');
+                                    _myBox.put('userId',
+                                        '${res['data']['user']['id']}');
                                   } else if (res['status'] == 'fail') {
-                                    print('hhhhhhhhhhhhhhhhhhhhhhhh');
-                                    showSnackBar(
-                                      "${res['message']}",
-                                      context,
-                                      margin: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height -
-                                              100,
-                                          right: 20,
-                                          left: 20),
-                                      color: Colors.red,
-                                    );
+                                   if (mounted){
+                                     showSnackBar(
+                                       "${res['message']}",
+                                       context,
+                                       margin: EdgeInsets.only(
+                                           bottom: MediaQuery.of(context)
+                                               .size
+                                               .height -
+                                               100,
+                                           right: 20,
+                                           left: 20),
+                                       color: Colors.red,
+                                     );
+                                   }
 
                                     setState(() {
                                       isValidate = false;

@@ -132,7 +132,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             TextButtonWidget(
                               text: 'Edit profile',
-                              textColor: Colors.white,
                               onPressed: () async {
                                 bool? refresh = await Navigator.push(
                                   context,

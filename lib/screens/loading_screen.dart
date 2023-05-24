@@ -1,6 +1,8 @@
 import 'package:attendance/main.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/models/response_model.dart';
+import 'package:attendance/providers/check_in_out_status_provider.dart';
+import 'package:attendance/providers/leave_types_provider.dart';
 import 'package:attendance/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,6 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../models/get_user_data_model.dart';
+import '../providers/admin_data_provider.dart';
 import '../providers/user_data_provider.dart';
 import '../services/get_user_information_service.dart';
 
@@ -41,6 +44,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (status != null) {
       if (status!) {
         Provider.of<UserInformationProvider>(context, listen: false).getUserInformation();
+        Provider.of<AdminInformationProvider>(context, listen: false).getAdminInformation();
+        Provider.of<LeaveTypesProvider>(context, listen: false).getLeaveTypes();
+        Provider.of<CheckStatusProvider>(context, listen: false).getCheckStatus();
         return const MyHomePage();
       } else {
         return const LogInScreen();
