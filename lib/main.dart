@@ -30,6 +30,7 @@ void main() async {
   await Hive.initFlutter();
 
   // Open The Box
+  await Hive.openBox('myBox');
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<UserInformationProvider>(
         create: (context) => UserInformationProvider()),
