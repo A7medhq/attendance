@@ -14,9 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../components/check_in_out_container.dart';
 import '../helpers/show_snack_bar_custom.dart';
-import '../models/admin_info_model.dart';
 import '../models/logrow_model.dart';
-import '../providers/admin_data_provider.dart';
 
 class CheckInOutScreen extends StatefulWidget {
   static const id = '/checkInOutScreen';
@@ -114,83 +112,91 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Consumer<CheckStatusProvider>(
-                builder: (context,value,child) {
+              Consumer<CheckStatusProvider>(builder: (context, value, child) {
+                if (value.state == CheckStatusState.Loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (value.state == CheckStatusState.Error) {
+                  return const Center(
+                    child: Text('Error'),
+                  );
+                }
+                final LogRawModel? checkStatus = value.checkStatus;
 
-                  if (value.state == CheckStatusState.Loading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (value.state == CheckStatusState.Error) {
-                    return const Center(
-                      child: Text('Error'),
-                    );
-                  }
-                  final LogRawModel? checkStatus = value.checkStatus;
+                if (checkStatus != null) {
+                  Color btnColor;
+                  String btnText;
 
-                  if (checkStatus!= null) {
-
-                    Color btnColor;
-                    String btnText;
-
-                    switch(checkStatus.errors.recordType) {
-                      case 0: {
+                  switch (checkStatus.errors.recordType) {
+                    case 0:
+                      {
                         btnColor = Colors.black;
                         btnText = 'No Location for this user';
                       }
                       break;
 
-                      case 1: {
+                    case 1:
+                      {
                         btnColor = Colors.red;
                         btnText = 'CHECK OUT';
                       }
                       break;
-                      case 2: {
+                    case 2:
+                      {
                         btnColor = kPrimaryColor;
                         btnText = 'CHECK IN';
                       }
                       break;
-                      case 3: {
+                    case 3:
+                      {
                         btnColor = kPrimaryColor;
-                        btnText = 'BREK IN';
+                        btnText = 'BREAK IN';
                       }
-                      break;case 4: {
-                      btnColor = Colors.red;
-                      btnText = 'BREK OUT';
+                      break;
+                    case 4:
+                      {
+                        btnColor = Colors.red;
+                        btnText = 'BREAK OUT';
                       }
                       break;
 
-                      default: {
+                    default:
+                      {
                         btnColor = Colors.red;
                         btnText = '';
                       }
                       break;
-                    }
-
-                  return MainButtonCustom(text: btnText,backgroudColor: btnColor, onTap: () async {
-                    try{
-
-                      getUserCurrentLocation().then((pos) async{
-                        final logRaw = await CheckService.sendLocationToCheck(longitude: pos.longitude.toString(), latitude: pos.latitude.toString());
-                        LogRawModel res = logRaw.data;
-
-                        if(mounted) {
-                          showSnackBar(res.errors.errorDescription,context, color: res.errors.errorCode == 0 ? Colors.green : Colors.red);
-                        }
-
-                      });
-
-                    }catch (e) {
-                      print(e);
-                    }
-                  }); }
-                  else {
-                    return const CircularProgressIndicator();
                   }
-                }
-              ),
 
+                  return MainButtonCustom(
+                      text: btnText,
+                      backgroudColor: btnColor,
+                      onTap: () async {
+                        try {
+                          getUserCurrentLocation().then((pos) async {
+                            final logRaw =
+                                await CheckService.sendLocationToCheck(
+                                    longitude: pos.longitude.toString(),
+                                    latitude: pos.latitude.toString());
+                            LogRawModel res = logRaw.data;
+
+                            if (mounted) {
+                              showSnackBar(res.errors.errorDescription, context,
+                                  color: res.errors.errorCode == 0
+                                      ? Colors.green
+                                      : Colors.red);
+                            }
+                          });
+                        } catch (e) {
+                          print(e);
+                        }
+                      });
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              }),
               SizedBox(
                 height: 12,
               ),

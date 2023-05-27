@@ -30,14 +30,14 @@ void main() async {
   await Hive.initFlutter();
 
   // Open The Box
-  var box = await Hive.openBox('myBox');
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<UserInformationProvider>(
         create: (context) => UserInformationProvider()),
     ChangeNotifierProvider<AdminInformationProvider>(
         create: (context) => AdminInformationProvider()),
     ChangeNotifierProvider<LeaveTypesProvider>(
-        create: (context) => LeaveTypesProvider()), ChangeNotifierProvider<CheckStatusProvider>(
+        create: (context) => LeaveTypesProvider()),
+    ChangeNotifierProvider<CheckStatusProvider>(
         create: (context) => CheckStatusProvider()),
   ], child: const MyApp()));
 }
@@ -51,7 +51,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Attendance App',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey.shade200,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: kPrimaryColor, background: Colors.grey.shade200),
         appBarTheme: AppBarTheme(backgroundColor: kPrimaryColor),
       ),
       routes: {
@@ -173,7 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
       title = 'Loan Request';
     }
     return Scaffold(
-        backgroundColor: Colors.grey.shade200,
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
@@ -240,6 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
             selected: currentPage == DrawerSections.leave ? true : false,
           ),
           menuItem(
+            soon: true,
             id: 4,
             title: 'Location Request',
             icon: FontAwesomeIcons.locationDot,
@@ -247,6 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 currentPage == DrawerSections.locationRequest ? true : false,
           ),
           menuItem(
+            soon: true,
             id: 5,
             title: 'Exit Permission Request',
             icon: FontAwesomeIcons.personWalkingDashedLineArrowRight,
@@ -255,6 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 : false,
           ),
           menuItem(
+            soon: true,
             id: 6,
             title: 'Loan Request',
             icon: FontAwesomeIcons.file,
@@ -311,6 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
       {required IconData icon,
       required String title,
       required int id,
+      bool soon = false,
       required bool selected}) {
     return Material(
       color: selected ? Colors.grey.shade300 : Colors.transparent,
@@ -358,10 +363,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
               )),
               Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Text(
                     title,
-                    style: const TextStyle(fontSize: 16.0, color: Colors.black),
+                    style: const TextStyle(fontSize: 15.0, color: Colors.black),
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: Text(
+                    soon == true ? 'soon' : '',
+                    style: const TextStyle(fontSize: 12.0, color: Colors.red),
                   )),
             ],
           ),
