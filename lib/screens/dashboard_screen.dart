@@ -101,7 +101,7 @@ class DashboardScreen extends StatelessWidget {
                   MyCard(
                     title: 'Attendees',
                     icon: FontAwesomeIcons.personCircleCheck,
-                    number: '15',
+                    number: 'soon',
                     date: '1 - 20 January',
                   ),
                   const SizedBox(
@@ -110,7 +110,7 @@ class DashboardScreen extends StatelessWidget {
                   MyCard(
                     title: 'Absent',
                     icon: FontAwesomeIcons.personCircleXmark,
-                    number: '15',
+                    number: 'soon',
                     date: '1 - 20 January',
                   ),
                 ],
@@ -123,7 +123,7 @@ class DashboardScreen extends StatelessWidget {
                   MyCard(
                     title: 'Late',
                     icon: FontAwesomeIcons.stopwatch,
-                    number: '15',
+                    number: 'soon',
                     date: '1 - 20 January',
                   ),
                   const SizedBox(
@@ -132,7 +132,7 @@ class DashboardScreen extends StatelessWidget {
                   MyCard(
                     title: 'Location',
                     icon: FontAwesomeIcons.locationCrosshairs,
-                    number: '15',
+                    number: 'soon',
                     date: '1 - 20 January',
                   ),
                 ],
