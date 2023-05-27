@@ -72,46 +72,44 @@ class _LeavePermissionRequestScreenState
                         ),
                         Expanded(
                           child: Consumer<LeaveTypesProvider>(
-                            builder: (context,value,child) {
-
-
-
-                              if (value.state == LeaveTypesProviderState.Loading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                              if (value.state == LeaveTypesProviderState.Error) {
-                                return const Center(
-                                  child: Text('Error'),
-                                );
-                              }
-                              final List<LeaveTypes>? leaveTypes = value.leaveTypes;
-
-                              if (leaveTypes!=null) {
-                                return ListView.builder(
-                                  controller: controller,
-                                  itemCount: leaveTypes.length,
-                                  itemBuilder: (_, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        print(leaveTypes[index].description);
-                                      },
-                                      child: Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: Text(leaveTypes[index].description),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                              else {
-                                return const CircularProgressIndicator();
-                              }
+                              builder: (context, value, child) {
+                            if (value.state ==
+                                LeaveTypesProviderState.Loading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
                             }
-                          ),
+                            if (value.state == LeaveTypesProviderState.Error) {
+                              return const Center(
+                                child: Text('Error'),
+                              );
+                            }
+                            final List<LeaveTypes>? leaveTypes =
+                                value.leaveTypes;
+
+                            if (leaveTypes != null) {
+                              return ListView.builder(
+                                controller: controller,
+                                itemCount: leaveTypes.length,
+                                itemBuilder: (_, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      print(leaveTypes[index].description);
+                                    },
+                                    child: Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child:
+                                            Text(leaveTypes[index].description),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          }),
                         ),
                       ],
                     ),
@@ -158,9 +156,9 @@ class _LeavePermissionRequestScreenState
                         border:
                             Border.all(color: Colors.grey.shade400, width: 1),
                         borderRadius: BorderRadius.circular(8)),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Flexible(
                           child: FittedBox(
                             fit: BoxFit.contain,
