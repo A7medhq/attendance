@@ -129,45 +129,24 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   Color btnColor;
                   String btnText;
 
-                  switch (checkStatus.errors.recordType) {
-                    case 0:
-                      {
-                        btnColor = Colors.black;
-                        btnText = 'No Location for this user';
-                      }
-                      break;
-
-                    case 1:
-                      {
-                        btnColor = Colors.red;
-                        btnText = 'CHECK OUT';
-                      }
-                      break;
-                    case 2:
-                      {
-                        btnColor = kPrimaryColor;
-                        btnText = 'CHECK IN';
-                      }
-                      break;
-                    case 3:
-                      {
-                        btnColor = kPrimaryColor;
-                        btnText = 'BREAK IN';
-                      }
-                      break;
-                    case 4:
-                      {
-                        btnColor = Colors.red;
-                        btnText = 'BREAK OUT';
-                      }
-                      break;
-
-                    default:
-                      {
-                        btnColor = Colors.red;
-                        btnText = '';
-                      }
-                      break;
+                  if (checkStatus.data.nextRecordType == 0) {
+                    btnColor = Colors.black;
+                    btnText = 'No Location for this user';
+                  } else if (checkStatus.data.nextRecordType == 1) {
+                    btnColor = Colors.red;
+                    btnText = 'LOGIN';
+                  } else if (checkStatus.data.nextRecordType == 2) {
+                    btnColor = kPrimaryColor;
+                    btnText = 'LOGOUT';
+                  } else if (checkStatus.data.nextRecordType == 3) {
+                    btnColor = kPrimaryColor;
+                    btnText = 'BREAK OUT';
+                  } else if (checkStatus.data.nextRecordType == 4) {
+                    btnColor = Colors.red;
+                    btnText = 'BREAK IN';
+                  } else {
+                    btnColor = Colors.red;
+                    btnText = '';
                   }
 
                   return MainButtonCustom(
@@ -183,8 +162,8 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                             LogRawModel res = logRaw.data;
 
                             if (mounted) {
-                              showSnackBar(res.errors.errorDescription, context,
-                                  color: res.errors.errorCode == 0
+                              showSnackBar(res.data.errorDescription, context,
+                                  color: res.data.errorCode == 0
                                       ? Colors.green
                                       : Colors.red);
                             }
@@ -197,7 +176,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   return const CircularProgressIndicator();
                 }
               }),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Row(
