@@ -4,22 +4,23 @@
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+LogRawModel welcomeFromJson(String str) =>
+    LogRawModel.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String welcomeToJson(LogRawModel data) => json.encode(data.toJson());
 
-class Welcome {
+class LogRawModel {
   String status;
   Data data;
   String message;
 
-  Welcome({
+  LogRawModel({
     required this.status,
     required this.data,
     required this.message,
   });
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory LogRawModel.fromJson(Map<String, dynamic> json) => LogRawModel(
         status: json["status"],
         data: Data.fromJson(json["data"]),
         message: json["message"],
