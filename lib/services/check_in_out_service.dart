@@ -43,6 +43,7 @@ class CheckService {
     });
     try {
       dynamic jsonResponse = jsonDecode(response.body);
+
       LogRawModel logRawData = LogRawModel.fromJson(jsonResponse);
 
       return ResponseModel(data: logRawData, message: logRawData.status);
