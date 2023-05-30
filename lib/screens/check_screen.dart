@@ -129,19 +129,19 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   Color btnColor;
                   String btnText;
 
-                  if (checkStatus.data.nextRecordType == 0) {
+                  if (checkStatus.errors.nextRecordType == 0) {
                     btnColor = Colors.black;
                     btnText = 'No Location for this user';
-                  } else if (checkStatus.data.nextRecordType == 1) {
+                  } else if (checkStatus.errors.nextRecordType == 1) {
                     btnColor = Colors.red;
                     btnText = 'LOGIN';
-                  } else if (checkStatus.data.nextRecordType == 2) {
+                  } else if (checkStatus.errors.nextRecordType == 2) {
                     btnColor = kPrimaryColor;
                     btnText = 'LOGOUT';
-                  } else if (checkStatus.data.nextRecordType == 3) {
+                  } else if (checkStatus.errors.nextRecordType == 3) {
                     btnColor = kPrimaryColor;
                     btnText = 'BREAK OUT';
-                  } else if (checkStatus.data.nextRecordType == 4) {
+                  } else if (checkStatus.errors.nextRecordType == 4) {
                     btnColor = Colors.red;
                     btnText = 'BREAK IN';
                   } else {
@@ -162,8 +162,8 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                             LogRawModel res = logRaw.data;
 
                             if (mounted) {
-                              showSnackBar(res.data.errorDescription, context,
-                                  color: res.data.errorCode == 0
+                              showSnackBar(res.errors.errorDescription, context,
+                                  color: res.errors.errorCode == 0
                                       ? Colors.green
                                       : Colors.red);
                             }

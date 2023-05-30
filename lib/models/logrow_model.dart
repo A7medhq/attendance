@@ -1,40 +1,40 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final logRaw = logRawFromJson(jsonString);
 
 import 'dart:convert';
 
-LogRawModel welcomeFromJson(String str) =>
+LogRawModel logRawFromJson(String str) =>
     LogRawModel.fromJson(json.decode(str));
 
-String welcomeToJson(LogRawModel data) => json.encode(data.toJson());
+String logRawToJson(LogRawModel data) => json.encode(data.toJson());
 
 class LogRawModel {
   String status;
-  Data data;
   String message;
+  Errors errors;
 
   LogRawModel({
     required this.status,
-    required this.data,
     required this.message,
+    required this.errors,
   });
 
   factory LogRawModel.fromJson(Map<String, dynamic> json) => LogRawModel(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
         message: json["message"],
+        errors: Errors.fromJson(json["errors"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "data": data.toJson(),
         "message": message,
+        "errors": errors.toJson(),
       };
 }
 
-class Data {
-  String employeeId;
+class Errors {
+  dynamic employeeId;
   DateTime date;
   String time;
   int recordType;
@@ -44,7 +44,7 @@ class Data {
   int errorCode;
   String errorDescription;
 
-  Data({
+  Errors({
     required this.employeeId,
     required this.date,
     required this.time,
@@ -56,7 +56,7 @@ class Data {
     required this.errorDescription,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Errors.fromJson(Map<String, dynamic> json) => Errors(
         employeeId: json["employee_id"],
         date: DateTime.parse(json["date"]),
         time: json["time"],
