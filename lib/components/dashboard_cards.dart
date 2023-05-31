@@ -22,6 +22,7 @@ class MyCard extends StatelessWidget {
       child: Container(
         height: 140,
         child: Card(
+          color: Colors.white,
           elevation: 2,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),

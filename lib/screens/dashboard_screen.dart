@@ -3,6 +3,7 @@ import 'package:attendance/models/get_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../components/dashboard_cards.dart';
 import '../providers/user_data_provider.dart';
@@ -10,6 +11,62 @@ import '../providers/user_data_provider.dart';
 class DashboardScreen extends StatelessWidget {
   static const id = '/dashboardScreen';
   const DashboardScreen({Key? key}) : super(key: key);
+
+  static Widget dashboardShimmer = Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundColor: kPrimaryColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 32, 8, 8),
+                    child: Container(
+                      color: Colors.grey,
+                      width: 130,
+                      height: 16,
+                    ),
+                  )
+                ],
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              Column(
+                children: [
+                  ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.at,
+                      color: kPrimaryColor,
+                    ),
+                    title: Container(
+                      color: Colors.grey,
+                      height: 16,
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.mobileScreen,
+                      color: kPrimaryColor,
+                    ),
+                    title: Container(
+                      color: Colors.grey,
+                      height: 16,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ],
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +79,7 @@ class DashboardScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: Card(
+                color: Colors.white,
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18)),
@@ -30,8 +88,8 @@ class DashboardScreen extends StatelessWidget {
                   child: Consumer<UserInformationProvider>(
                       builder: (context, value, child) {
                     if (value.state == UserInformationState.Loading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Center(
+                        child: dashboardShimmer,
                       );
                     }
                     if (value.state == UserInformationState.Error) {
@@ -88,7 +146,7 @@ class DashboardScreen extends StatelessWidget {
                         ],
                       );
                     } else {
-                      return const CircularProgressIndicator();
+                      return dashboardShimmer;
                     }
                   }),
                 ),

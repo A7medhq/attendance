@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
         UserPermessionRequestScreen.id: (context) =>
             const UserPermessionRequestScreen(),
         LoanRequestScreen.id: (context) => const LoanRequestScreen(),
-        ProfileScreen.id: (context) => const ProfileScreen(),
+        ProfileScreen.id: (context) => ProfileScreen(),
         UpdateImageScreen.id: (context) => const UpdateImageScreen(),
       },
     );
@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body = const CheckInOutScreen();
       title = 'Check In/Out';
     } else if (currentPage == DrawerSections.profile) {
-      body = const ProfileScreen();
+      body = ProfileScreen();
       title = 'My Profile';
     } else if (currentPage == DrawerSections.leave) {
       body = const LeavePermissionRequestScreen();
@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
-              children: [const HeaderDrawer(), myDrawerList()],
+              children: [HeaderDrawer(), myDrawerList()],
             ),
           ),
         ),

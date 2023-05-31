@@ -3,15 +3,41 @@ import 'package:attendance/models/get_user_data_model.dart';
 import 'package:attendance/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
-class HeaderDrawer extends StatefulWidget {
-  const HeaderDrawer({Key? key}) : super(key: key);
+class HeaderDrawer extends StatelessWidget {
+  HeaderDrawer({Key? key}) : super(key: key);
 
-  @override
-  State<HeaderDrawer> createState() => _HeaderDrawerState();
-}
+  Widget drawerHeaderShimmer = Shimmer.fromColors(
+      baseColor: const Color(0xff4865c2),
+      highlightColor: const Color(0xff223c8f),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            height: 70,
+            decoration: const BoxDecoration(
+              color: Colors.grey,
+              shape: BoxShape.circle,
+            ),
+          ),
+          Container(
+            height: 14,
+            width: 80,
+            color: Colors.grey,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            height: 14,
+            width: 130,
+            color: Colors.grey,
+          ),
+        ],
+      ));
 
-class _HeaderDrawerState extends State<HeaderDrawer> {
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -36,8 +62,8 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
           child: Consumer<UserInformationProvider>(
               builder: (context, value, child) {
             if (value.state == UserInformationState.Loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child: drawerHeaderShimmer,
               );
             }
             if (value.state == UserInformationState.Error) {
@@ -76,7 +102,7 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
                 ],
               );
             } else {
-              return const CircularProgressIndicator();
+              return drawerHeaderShimmer;
             }
           }),
         ),
