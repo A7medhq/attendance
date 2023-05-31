@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
 import 'package:attendance/providers/user_data_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
 import '../components/text_button.dart';
 import '../components/text_field_custom.dart';
 import '../helpers/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../helpers/show_snack_bar_custom.dart';
 import '../models/get_user_data_model.dart';
 import '../services/update_user_information.dart';
@@ -125,51 +125,46 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                   ),
                   MainButtonCustom(
                     onTap: () async {
-                      if (_notify_mobile.text.isNotEmpty) {
-                        // data!.data!.notifyMobile = _notify_mobile.text;
-                        // UpdateUserData.updateUserData(
-                        //     data!.data!.notifyMobile.toString());
-                        print('${_notify_mobile.text}/////');
+                      if (_notify_mobile.text.isNotEmpty &&
+                          _notify_mobile.text != userInfo.notifyMobile) {
                         await UpdateUserData.updateUserData(
                           _notify_mobile.text,
                         ).then(
                           (value) => showSnackBar(value, context,
                               color: kPrimaryColor),
                         );
-                        print(_notify_mobile.text);
                         if (mounted) {
                           Provider.of<UserInformationProvider>(context,
                                   listen: false)
                               .getUserInformation();
                         }
-                      } else {
-                        showSnackBar('please enter your mobile number', context,
-                            color: kPrimaryColor);
                       }
-                      // setState(() {
-                      //   isLoading = true;
-                      // });
 
                       if (_imageFile != null) {
+                        setState(() {
+                          isLoading = true;
+                        });
                         if (imageSizeInKB < 2048) {
                           var response = await UpdateUserData.updateUserImage(
                               _imageFile!.path);
 
                           if (response.statusCode == 200) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Updated successfully')));
-
                             if (mounted) {
+                              showSnackBar('Updated successfully', context,
+                                  color: kPrimaryColor);
+
                               Provider.of<UserInformationProvider>(context,
                                       listen: false)
                                   .getUserInformation();
+                              setState(() {
+                                isLoading = false;
+                              });
                             }
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text('Error Occurred: Try again')));
+                            if (mounted) {
+                              showSnackBar('Error Occurred: Try again', context,
+                                  color: Colors.red);
+                            }
                           }
                           setState(() {
                             isLoading = false;
@@ -178,18 +173,12 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                           setState(() {
                             isLoading = false;
                           });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content:
-                                      Text('The image must be less than 2mb')));
+                          if (mounted) {
+                            showSnackBar(
+                                'The image must be less than 2mb', context,
+                                color: Colors.green);
+                          }
                         }
-                      } else {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Choose a photo first')));
                       }
                     },
                     text: 'Save',
@@ -197,9 +186,6 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                     width: 300,
                   ),
                   const Spacer(),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
                   if (isLoading)
                     const Center(child: CircularProgressIndicator())
                 ],
@@ -213,8 +199,6 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
     );
   }
 }
-
-
 
 // class UpdateImageScreen extends StatelessWidget {
 //   static const id = '/updateImageScreen';

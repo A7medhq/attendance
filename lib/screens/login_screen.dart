@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:attendance/components/text_button.dart';
-import 'package:attendance/main.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/screens/loading_screen.dart';
 import 'package:attendance/services/login_service.dart';
@@ -12,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 import '../helpers/show_snack_bar_custom.dart';
 import '../services/auth.dart';
 
@@ -50,6 +50,50 @@ class _LogInScreenState extends State<LogInScreen> {
     // TODO: implement dispose
     emailController.dispose();
     super.dispose();
+  }
+
+  Future<bool> loginMethod(
+      {required String email, required String password}) async {
+    var res =
+        await AuthServiceAPI.sendLoginData(email: email, password: password);
+
+    // if (form!.validate()) {
+    //   final email = emailController.text;
+    // }
+
+    if (res != null) {
+      if (res['status'] == 'success') {
+        if (mounted) {
+          showSnackBar("${res['message']}", context, color: kPrimaryColor);
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const LoadingScreen()));
+        }
+        _myBox.put('token', 'Bearer ${res['data']['token']}');
+
+        _myBox.put('userId', '${res['data']['user']['id']}');
+
+        _myBox.put('email', email);
+        _myBox.put('password', password);
+        return true;
+      } else if (res['status'] == 'fail') {
+        if (mounted) {
+          showSnackBar(
+            "${res['message']}",
+            context,
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height - 100,
+                right: 20,
+                left: 20),
+            color: Colors.red,
+          );
+        }
+
+        setState(() {
+          isValidate = false;
+        });
+      }
+    }
+    return false;
   }
 
   @override
@@ -210,50 +254,12 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                               onTap: () async {
                                 FocusScope.of(context).unfocus();
-
                                 isLoading = true;
                                 setState(() {});
-                                final form = formkey.currentState;
-                                var res = await AuthServiceAPI.sendLoginData(
+                                // final form = formkey.currentState;
+                                loginMethod(
                                     email: emailController.text,
                                     password: passwordController.text);
-                                if (form!.validate()) {
-                                  final email = emailController.text;
-                                }
-                                if (res != null) {
-                                  if (res['status'] == 'success') {
-    if (mounted){ showSnackBar("${res['message']}", context,
-                                        color: kPrimaryColor);
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoadingScreen())); }
-                                    _myBox.put('token',
-                                        'Bearer ${res['data']['token']}');
-    print('userID: ${res['data']['user']['id']}');
-                                    _myBox.put('userId',
-                                        '${res['data']['user']['id']}');
-                                  } else if (res['status'] == 'fail') {
-                                   if (mounted){
-                                     showSnackBar(
-                                       "${res['message']}",
-                                       context,
-                                       margin: EdgeInsets.only(
-                                           bottom: MediaQuery.of(context)
-                                               .size
-                                               .height -
-                                               100,
-                                           right: 20,
-                                           left: 20),
-                                       color: Colors.red,
-                                     );
-                                   }
-
-                                    setState(() {
-                                      isValidate = false;
-                                    });
-                                  }
-                                }
                                 isLoading = false;
                                 setState(() {});
                               },
@@ -285,10 +291,10 @@ class _LogInScreenState extends State<LogInScreen> {
                               bool isAuthenticated =
                                   await AuthService().authenticateUser();
                               if (isAuthenticated) {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MyHomePage()));
+                                loginMethod(
+                                        email: _myBox.get('email'),
+                                        password: _myBox.get('password'))
+                                    .then((value) {});
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
