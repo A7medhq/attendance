@@ -4,6 +4,7 @@ import 'package:attendance/components/text_button.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/screens/loading_screen.dart';
 import 'package:attendance/services/login_service.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,20 +35,18 @@ class _LogInScreenState extends State<LogInScreen> {
   bool isValidate = true;
 
   bool isLoading = false;
+
   @override
   void initState() {
     if (_myBox.get('isBiometricsEnabled') != null) {
       isBiometricsEnabled = _myBox.get('isBiometricsEnabled');
     }
 
-    // get company domain
-
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     super.dispose();
   }
@@ -253,15 +252,27 @@ class _LogInScreenState extends State<LogInScreen> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               onTap: () async {
-                                FocusScope.of(context).unfocus();
-                                isLoading = true;
-                                setState(() {});
-                                // final form = formkey.currentState;
-                                loginMethod(
-                                    email: emailController.text,
-                                    password: passwordController.text);
-                                isLoading = false;
-                                setState(() {});
+                                final connectivityResult =
+                                    await (Connectivity().checkConnectivity());
+
+                                if (connectivityResult !=
+                                    ConnectivityResult.none) {
+                                  FocusScope.of(context).unfocus();
+                                  isLoading = true;
+                                  setState(() {});
+                                  // final form = formkey.currentState;
+                                  loginMethod(
+                                      email: emailController.text,
+                                      password: passwordController.text);
+                                  isLoading = false;
+                                  setState(() {});
+                                } else {
+                                  if (mounted) {
+                                    showSnackBar(
+                                        'No Internet Connection', context,
+                                        color: Colors.black);
+                                  }
+                                }
                               },
                               child: Container(
                                 clipBehavior: Clip.hardEdge,
@@ -288,19 +299,31 @@ class _LogInScreenState extends State<LogInScreen> {
                         if (isBiometricsEnabled == true)
                           InkWell(
                             onTap: () async {
-                              bool isAuthenticated =
-                                  await AuthService().authenticateUser();
-                              if (isAuthenticated) {
-                                loginMethod(
-                                        email: _myBox.get('email'),
-                                        password: _myBox.get('password'))
-                                    .then((value) {});
+                              final connectivityResult =
+                                  await (Connectivity().checkConnectivity());
+
+                              if (connectivityResult !=
+                                  ConnectivityResult.none) {
+                                bool isAuthenticated =
+                                    await AuthService().authenticateUser();
+                                if (isAuthenticated) {
+                                  loginMethod(
+                                          email: _myBox.get('email'),
+                                          password: _myBox.get('password'))
+                                      .then((value) {});
+                                } else {
+                                  if (mounted) {
+                                    showSnackBar(
+                                        'Authentication failed.', context,
+                                        color: Colors.red);
+                                  }
+                                }
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Authentication failed.'),
-                                  ),
-                                );
+                                if (mounted) {
+                                  showSnackBar(
+                                      'No Internet Connection', context,
+                                      color: Colors.black);
+                                }
                               }
                             },
                             child: Container(
