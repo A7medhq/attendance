@@ -18,7 +18,6 @@ import 'package:attendance/screens/user_exit_permission_request_screen.dart';
 import 'package:attendance/services/auth.dart';
 import 'package:attendance/services/logout_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -29,7 +28,6 @@ import 'drawer/header_drawer.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // Initialize Hive
   await Hive.initFlutter();
 
@@ -45,7 +43,6 @@ void main() async {
     ChangeNotifierProvider<CheckStatusProvider>(
         create: (context) => CheckStatusProvider()),
   ], child: const MyApp()));
-  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -107,9 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
           title: const Text('Using Fingerprint'),
-          content: const SingleChildScrollView(
+          content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('Would you like to use your fingerprint'),
                 Text('the next time you login?'),
               ],
