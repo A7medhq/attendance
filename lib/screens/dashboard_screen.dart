@@ -130,7 +130,10 @@ class DashboardScreen extends StatelessWidget {
                                       FontAwesomeIcons.at,
                                       color: kPrimaryColor,
                                     ),
-                                    title: Text(userInfo.notifyEmail!),
+                                    title: Text(
+                                      userInfo.notifyEmail!,
+                                      style: TextStyle(fontSize: 14),
+                                    ),
                                   ),
                                   ListTile(
                                     leading: Icon(
