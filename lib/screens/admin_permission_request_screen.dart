@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 import '../components/main_button_custom.dart';
 import '../components/list_tile_custom.dart';
 import '../helpers/constants.dart';
+import '../helpers/manager_fonts.dart';
+import '../helpers/manager_strings.dart';
+import '../helpers/util/size_util.dart';
 
 class AdminPermessionRequestScreen extends StatefulWidget {
   static const id = '/adminPermessionRequestScreen';
@@ -16,7 +19,7 @@ class AdminPermessionRequestScreen extends StatefulWidget {
 
 class _AdminPermessionRequestScreenState
     extends State<AdminPermessionRequestScreen> {
-  String? groupValue = '1';
+  String? groupValue = ManagerStrings.groupValue;
   bool isTextFieldEnabled = false;
   TextEditingController otherTextFieldController = TextEditingController();
   TextEditingController dateTextFieldController = TextEditingController();
@@ -26,13 +29,14 @@ class _AdminPermessionRequestScreenState
   @override
   void initState() {
     dateTextFieldController.text =
-        DateFormat('yyyy-MM-dd').format(DateTime.now());
+        DateFormat(ManagerStrings.dateFormatYMD).format(DateTime.now());
 
     inTimeTextFieldController.text =
-        DateFormat('h:mm a').format(DateTime.now());
+        DateFormat(ManagerStrings.dateFormatHMA).format(DateTime.now());
 
-    outTimeTextFieldController.text = DateFormat('h:mm a')
-        .format(DateTime.now().add(const Duration(hours: 2)));
+    outTimeTextFieldController.text = DateFormat(ManagerStrings.dateFormatHMA)
+        .format(DateTime.now()
+            .add(const Duration(hours: Constants.dateTimeDuration)));
 
     super.initState();
   }
@@ -45,74 +49,78 @@ class _AdminPermessionRequestScreenState
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          'Permission Request',
+          ManagerStrings.permissionRequest,
           style: TextStyle(color: Colors.black),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.symmetric(
+            vertical: ManagerHeight.h24, horizontal: ManagerWidth.w24),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const ListTileCustom(
-                title: 'Request ID',
-                subtitle: 'P000012',
+                title: ManagerStrings.requestID,
+                subtitle: ManagerStrings.subTitleP000012,
               ),
-              const SizedBox(
-                height: 40,
-              ),
-              const ListTileCustom(
-                title: 'Employee Name',
-                subtitle: 'Employee Name',
-              ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: ManagerHeight.h40,
               ),
               const ListTileCustom(
-                title: 'Permission Type',
-                subtitle: 'Emergency',
+                title: ManagerStrings.employeeName,
+                subtitle: ManagerStrings.employeeName,
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: ManagerHeight.h40,
               ),
               const ListTileCustom(
-                title: 'Permission Date',
-                subtitle: '20/01/2023',
+                title: ManagerStrings.permissionType,
+                subtitle: ManagerStrings.emergency,
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: ManagerHeight.h40,
+              ),
+              const ListTileCustom(
+                title: ManagerStrings.permissionDate,
+                subtitle: ManagerStrings.permissionDateNum,
+              ),
+              SizedBox(
+                height: ManagerHeight.h40,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Permission Time',
-                    style: TextStyle(fontSize: 18, color: Colors.grey.shade500),
+                    ManagerStrings.permissionTime,
+                    style: TextStyle(
+                        fontSize: ManagerFontSize.s18,
+                        color: Colors.grey.shade500),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: ManagerHeight.h10,
                   ),
                   RichText(
                     text: TextSpan(
                       children: <TextSpan>[
-                        const TextSpan(
-                          text: '12:00',
+                        TextSpan(
+                          text: ManagerStrings.time12,
                           style: TextStyle(
-                              fontSize: 15,
+                              fontSize: ManagerFontSize.s15,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
                         TextSpan(
-                          text: ' T0 ',
+                          text: ManagerStrings.to,
                           style: TextStyle(
-                              fontSize: 19, color: Colors.grey.shade500),
+                              fontSize: ManagerFontSize.s19,
+                              color: Colors.grey.shade500),
                         ),
-                        const TextSpan(
-                          text: '12:00',
+                        TextSpan(
+                          text: ManagerStrings.time12,
                           style: TextStyle(
-                              fontSize: 15,
+                              fontSize: ManagerFontSize.s15,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
@@ -121,18 +129,18 @@ class _AdminPermessionRequestScreenState
                   )
                 ],
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: ManagerHeight.h40,
               ),
               Row(
                 children: [
-                  MainButtonCustom(text: 'Approve', onTap: () {}),
-                  const SizedBox(
-                    width: 10,
+                  MainButtonCustom(text: ManagerStrings.approve, onTap: () {}),
+                  SizedBox(
+                    width: ManagerWidth.w10,
                   ),
                   MainButtonCustom(
                       isOutlined: true,
-                      text: 'Reject',
+                      text: ManagerStrings.reject,
                       backgroudColor: Colors.white,
                       textColor: kPrimaryColor,
                       onTap: () {}),

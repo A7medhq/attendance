@@ -18,3 +18,7 @@ TextStyle kHintText = const TextStyle(color: Colors.grey, fontSize: 14);
 InputBorder kOutlineBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
     borderSide: const BorderSide(width: 1, color: Colors.grey));
+
+class Constants {
+  static const int dateTimeDuration = 2;
+}
