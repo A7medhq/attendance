@@ -25,21 +25,37 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  var emailController = TextEditingController(text: 'ahmed@digitalorder.net');
-  var passwordController = TextEditingController(text: '123456');
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool isPassword = true;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final _myBox = Hive.box('myBox');
   bool? isBiometricsEnabled;
+  bool? rememberMeCheck = false;
   String message = '';
   bool isValidate = true;
 
   bool isLoading = false;
 
+  Map credentials = {};
+
   @override
   void initState() {
     if (_myBox.get('isBiometricsEnabled') != null) {
       isBiometricsEnabled = _myBox.get('isBiometricsEnabled');
+    }
+    if (_myBox.get('credentials') != null) {
+      credentials = _myBox.get('credentials');
+
+      emailController = TextEditingController(text: credentials['email']);
+      passwordController = TextEditingController(text: credentials['password']);
+    }
+    if (_myBox.get('rememberMeCheck') != null) {
+      if (_myBox.get('rememberMeCheck') == true) {
+        rememberMeCheck = true;
+      } else {
+        rememberMeCheck = false;
+      }
     }
 
     super.initState();
@@ -71,8 +87,13 @@ class _LogInScreenState extends State<LogInScreen> {
 
         _myBox.put('userId', '${res['data']['user']['id']}');
 
-        _myBox.put('email', email);
-        _myBox.put('password', password);
+        if (rememberMeCheck == true) {
+          _myBox.put('credentials', {'email': email, 'password': password});
+          _myBox.put('rememberMeCheck', true);
+        } else {
+          _myBox.put('credentials', null);
+          _myBox.put('rememberMeCheck', false);
+        }
         return true;
       } else if (res['status'] == 'fail') {
         if (mounted) {
@@ -223,8 +244,12 @@ class _LogInScreenState extends State<LogInScreen> {
                       children: [
                         Checkbox(
                             activeColor: kPrimaryColor,
-                            value: true,
-                            onChanged: (v) {}),
+                            value: rememberMeCheck,
+                            onChanged: (v) {
+                              setState(() {
+                                rememberMeCheck = v;
+                              });
+                            }),
                         const SizedBox(
                           width: 10,
                         ),
@@ -283,10 +308,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                 width: 250,
                                 child: const Center(
                                     child: Text(
-                                  'Login',
+                                  'LOGIN',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 17,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 )),
                               ),
@@ -308,8 +333,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                     await AuthService().authenticateUser();
                                 if (isAuthenticated) {
                                   loginMethod(
-                                          email: _myBox.get('email'),
-                                          password: _myBox.get('password'))
+                                          email: emailController.text,
+                                          password: passwordController.text)
                                       .then((value) {});
                                 } else {
                                   if (mounted) {

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
-import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/providers/check_in_out_status_provider.dart';
 import 'package:attendance/services/check_in_out_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -11,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../components/check_in_out_container.dart';
 import '../helpers/show_snack_bar_custom.dart';
@@ -56,6 +56,21 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
       // Android 9 (SDK 28), Xiaomi Redmi Note 7
     }
   }
+
+  static Widget buttonShimmer = Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          border: Border.all(
+              color: Colors.green, width: 1.5, style: BorderStyle.none),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        height: 60,
+        width: double.infinity,
+      ));
 
   @override
   void initState() {
@@ -114,9 +129,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
             children: [
               Consumer<CheckStatusProvider>(builder: (context, value, child) {
                 if (value.state == CheckStatusState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return buttonShimmer;
                 }
                 if (value.state == CheckStatusState.Error) {
                   return const Center(
@@ -133,16 +146,16 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                     btnColor = Colors.black;
                     btnText = 'No Location for this user';
                   } else if (checkStatus.errors.nextRecordType == 1) {
-                    btnColor = Colors.red;
+                    btnColor = Colors.green;
                     btnText = 'LOGIN';
                   } else if (checkStatus.errors.nextRecordType == 2) {
-                    btnColor = kPrimaryColor;
+                    btnColor = Colors.red;
                     btnText = 'LOGOUT';
                   } else if (checkStatus.errors.nextRecordType == 3) {
-                    btnColor = kPrimaryColor;
+                    btnColor = Colors.red;
                     btnText = 'BREAK OUT';
                   } else if (checkStatus.errors.nextRecordType == 4) {
-                    btnColor = Colors.red;
+                    btnColor = Colors.green;
                     btnText = 'BREAK IN';
                   } else {
                     btnColor = Colors.red;
@@ -166,6 +179,9 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                                   color: res.errors.errorCode == 0
                                       ? Colors.green
                                       : Colors.red);
+                              Provider.of<CheckStatusProvider>(context,
+                                      listen: false)
+                                  .getCheckStatus();
                             }
                           });
                         } catch (e) {
@@ -173,7 +189,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                         }
                       });
                 } else {
-                  return const CircularProgressIndicator();
+                  return buttonShimmer;
                 }
               }),
               const SizedBox(
@@ -185,7 +201,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   CheckInOutContainer(
                     icon: FontAwesomeIcons.arrowRightToBracket,
                     title: "Last Check-In",
-                    date: 'Mar 12-05-2022',
+                    date: 'soon',
                   ),
                   const SizedBox(
                     width: 15,
@@ -193,7 +209,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   CheckInOutContainer(
                     icon: FontAwesomeIcons.arrowRightFromBracket,
                     title: "Last Check-Out",
-                    date: 'Mar 12-05-2022',
+                    date: 'soon',
                   ),
                 ],
               )

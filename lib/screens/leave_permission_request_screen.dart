@@ -1,6 +1,6 @@
+import 'package:attendance/components/date_picker_custom.dart';
 import 'package:attendance/components/head_text.dart';
 import 'package:attendance/components/main_button_custom.dart';
-import 'package:attendance/components/date_picker_custom.dart';
 import 'package:attendance/components/text_field_custom.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/models/active_leave_types_model.dart';
@@ -9,9 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../components/text_field_custom.dart';
-import '../helpers/constants.dart';
 
 class LeavePermissionRequestScreen extends StatefulWidget {
   static const id = '/leavePermissionRequestScreen';
@@ -251,6 +248,9 @@ class _LeavePermissionRequestScreenState
               MainButtonCustom(
                 onTap: () {},
                 text: 'Send request',
+              ),
+              const SizedBox(
+                height: 30,
               ),
             ],
           ),
