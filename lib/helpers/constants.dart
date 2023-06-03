@@ -20,5 +20,10 @@ InputBorder kOutlineBorder = OutlineInputBorder(
     borderSide: const BorderSide(width: 1, color: Colors.grey));
 
 class Constants {
+  static const double deviceWidth = 375;
+  static const double deviceHeight = 812;
   static const int dateTimeDuration = 2;
+  static const double latLnglatitude = 0;
+  static const double latLnglongitude = 0;
+  static const double zoom = 15.4746;
 }

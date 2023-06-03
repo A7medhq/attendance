@@ -5,8 +5,8 @@ import '../components/main_button_custom.dart';
 import '../components/list_tile_custom.dart';
 import '../helpers/constants.dart';
 import '../helpers/manager_fonts.dart';
+import '../helpers/manager_sizes.dart';
 import '../helpers/manager_strings.dart';
-import '../helpers/util/size_util.dart';
 
 class AdminPermessionRequestScreen extends StatefulWidget {
   static const id = '/adminPermessionRequestScreen';

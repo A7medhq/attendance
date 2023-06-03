@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/helpers/manager_strings.dart';
 import 'package:attendance/providers/check_in_out_status_provider.dart';
 import 'package:attendance/services/check_in_out_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -13,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../components/check_in_out_container.dart';
+import '../helpers/manager_sizes.dart';
 import '../helpers/show_snack_bar_custom.dart';
 import '../models/logrow_model.dart';
 
@@ -29,8 +32,8 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
       Completer<GoogleMapController>();
 
   static CameraPosition _myPosition = const CameraPosition(
-    target: LatLng(0, 0),
-    zoom: 15.4746,
+    target: LatLng(Constants.latLnglatitude, Constants.latLnglongitude),
+    zoom: Constants.zoom,
   );
 
   // created method for getting user current location
@@ -39,7 +42,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR$error");
+      print("${ManagerStrings.error}$error");
     });
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -65,10 +68,12 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         decoration: BoxDecoration(
           color: Colors.blue,
           border: Border.all(
-              color: Colors.green, width: 1.5, style: BorderStyle.none),
-          borderRadius: BorderRadius.circular(50),
+              color: Colors.green,
+              width: ManagerWidth.wBorder,
+              style: BorderStyle.none),
+          borderRadius: BorderRadius.circular(ManagerRadius.r50),
         ),
-        height: 60,
+        height: ManagerHeight.h60,
         width: double.infinity,
       ));
 

@@ -15,4 +15,5 @@ class ManagerStrings {
   static const String to = ' T0 ';
   static const String approve = 'Approve';
   static const String reject = 'Reject';
+  static const String error = 'ERROR';
 }
