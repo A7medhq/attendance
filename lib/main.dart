@@ -25,6 +25,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
 import 'drawer/header_drawer.dart';
+import 'helpers/manager_strings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           themeMode: ThemeMode.light,
           debugShowCheckedModeBanner: false,
-          title: 'Attendance App',
+          title: ManagerStrings.attendanceApp,
           theme: ThemeData(
             brightness: Brightness.light,
             fontFamily: GoogleFonts.poppins().fontFamily,
