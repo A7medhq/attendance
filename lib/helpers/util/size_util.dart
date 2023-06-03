@@ -2,7 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SizeUtil {
   static double setWidth(double width) {
-    return width.w;
+    return ScreenUtil().setWidth(width);
   }
 
   static double setHeight(double height) {

@@ -18,18 +18,17 @@ import 'package:attendance/screens/user_exit_permission_request_screen.dart';
 import 'package:attendance/services/auth.dart';
 import 'package:attendance/services/logout_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
-
 import 'drawer/header_drawer.dart';
+import 'helpers/manager_strings.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
   // Initialize Hive
   await Hive.initFlutter();
 
@@ -45,7 +44,6 @@ void main() async {
     ChangeNotifierProvider<CheckStatusProvider>(
         create: (context) => CheckStatusProvider()),
   ], child: const MyApp()));
-  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -53,34 +51,45 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.light,
-      debugShowCheckedModeBanner: false,
-      title: 'Attendance App',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        fontFamily: GoogleFonts.poppins().fontFamily,
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: kPrimaryColor, background: Colors.grey.shade200),
-        appBarTheme: AppBarTheme(backgroundColor: kPrimaryColor),
+    return ScreenUtilInit(
+      splitScreenMode: true,
+      minTextAdapt: true,
+      designSize: const Size(
+        Constants.deviceWidth,
+        Constants.deviceHeight,
       ),
-      routes: {
-        LoadingScreen.id: (context) => const LoadingScreen(),
-        CheckInOutScreen.id: (context) => const CheckInOutScreen(),
-        DashboardScreen.id: (context) => const DashboardScreen(),
-        AdminPermessionRequestScreen.id: (context) =>
-            const AdminPermessionRequestScreen(),
-        LeavePermissionRequestScreen.id: (context) =>
-            const LeavePermissionRequestScreen(),
-        LocationRequestScreen.id: (context) => const LocationRequestScreen(),
-        LogInScreen.id: (context) => const LogInScreen(),
-        '/notifications': (context) => const NotificationsScreen(),
-        UserPermessionRequestScreen.id: (context) =>
-            const UserPermessionRequestScreen(),
-        LoanRequestScreen.id: (context) => const LoanRequestScreen(),
-        ProfileScreen.id: (context) => ProfileScreen(),
-        UpdateImageScreen.id: (context) => const UpdateImageScreen(),
+      builder: (context, child) {
+        return MaterialApp(
+          themeMode: ThemeMode.light,
+          debugShowCheckedModeBanner: false,
+          title: ManagerStrings.attendanceApp,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: kPrimaryColor, background: Colors.grey.shade200),
+            appBarTheme: AppBarTheme(backgroundColor: kPrimaryColor),
+          ),
+          routes: {
+            LoadingScreen.id: (context) => const LoadingScreen(),
+            CheckInOutScreen.id: (context) => const CheckInOutScreen(),
+            DashboardScreen.id: (context) => const DashboardScreen(),
+            AdminPermessionRequestScreen.id: (context) =>
+                const AdminPermessionRequestScreen(),
+            LeavePermissionRequestScreen.id: (context) =>
+                const LeavePermissionRequestScreen(),
+            LocationRequestScreen.id: (context) =>
+                const LocationRequestScreen(),
+            LogInScreen.id: (context) => const LogInScreen(),
+            '/notifications': (context) => const NotificationsScreen(),
+            UserPermessionRequestScreen.id: (context) =>
+                const UserPermessionRequestScreen(),
+            LoanRequestScreen.id: (context) => const LoanRequestScreen(),
+            ProfileScreen.id: (context) => ProfileScreen(),
+            UpdateImageScreen.id: (context) => const UpdateImageScreen(),
+          },
+        );
       },
     );
   }
@@ -107,9 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
           title: const Text('Using Fingerprint'),
-          content: const SingleChildScrollView(
+          content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('Would you like to use your fingerprint'),
                 Text('the next time you login?'),
               ],

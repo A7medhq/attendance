@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:attendance/components/main_button_custom.dart';
+import 'package:attendance/helpers/constants.dart';
+import 'package:attendance/helpers/manager_strings.dart';
 import 'package:attendance/providers/check_in_out_status_provider.dart';
 import 'package:attendance/services/check_in_out_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -13,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../components/check_in_out_container.dart';
+import '../helpers/manager_sizes.dart';
 import '../helpers/show_snack_bar_custom.dart';
 import '../models/logrow_model.dart';
 
@@ -29,8 +32,8 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
       Completer<GoogleMapController>();
 
   static CameraPosition _myPosition = const CameraPosition(
-    target: LatLng(0, 0),
-    zoom: 15.4746,
+    target: LatLng(Constants.latLnglatitude, Constants.latLnglongitude),
+    zoom: Constants.zoom15,
   );
 
   // created method for getting user current location
@@ -39,7 +42,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR$error");
+      print("${ManagerStrings.error}$error");
     });
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -65,10 +68,12 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         decoration: BoxDecoration(
           color: Colors.blue,
           border: Border.all(
-              color: Colors.green, width: 1.5, style: BorderStyle.none),
-          borderRadius: BorderRadius.circular(50),
+              color: Colors.green,
+              width: ManagerWidth.wBorder,
+              style: BorderStyle.none),
+          borderRadius: BorderRadius.circular(ManagerRadius.r50),
         ),
-        height: 60,
+        height: ManagerHeight.h60,
         width: double.infinity,
       ));
 
@@ -80,7 +85,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
       print("${value.latitude} ${value.longitude}");
       _myPosition = CameraPosition(
         target: LatLng(value.latitude, value.longitude),
-        zoom: 18,
+        zoom: Constants.zoom18,
       );
 
       final GoogleMapController controller = await _controller.future;
@@ -98,7 +103,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(
-          flex: 3,
+          flex: Constants.flex3,
           child: GoogleMap(
             scrollGesturesEnabled: false,
             buildingsEnabled: false,
@@ -116,14 +121,17 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
             },
             markers: {
               Marker(
-                  markerId: const MarkerId('marker'),
+                  markerId: const MarkerId(ManagerStrings.marker),
                   position: LatLng(_myPosition.target.latitude,
                       _myPosition.target.longitude))
             },
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: ManagerWidth.w24,
+            vertical: ManagerHeight.h24,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -133,7 +141,7 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                 }
                 if (value.state == CheckStatusState.Error) {
                   return const Center(
-                    child: Text('Error'),
+                    child: Text(ManagerStrings.error),
                   );
                 }
                 final LogRawModel? checkStatus = value.checkStatus;
@@ -142,24 +150,29 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   Color btnColor;
                   String btnText;
 
-                  if (checkStatus.errors.nextRecordType == 0) {
+                  if (checkStatus.errors.nextRecordType ==
+                      NextRecordTypeConstants.zeroNextRecordType) {
                     btnColor = Colors.black;
-                    btnText = 'No Location for this user';
-                  } else if (checkStatus.errors.nextRecordType == 1) {
+                    btnText = ManagerStrings.noLocation;
+                  } else if (checkStatus.errors.nextRecordType ==
+                      NextRecordTypeConstants.firstNextRecordType) {
                     btnColor = Colors.green;
-                    btnText = 'LOGIN';
-                  } else if (checkStatus.errors.nextRecordType == 2) {
+                    btnText = ManagerStrings.login;
+                  } else if (checkStatus.errors.nextRecordType ==
+                      NextRecordTypeConstants.secondNextRecordType) {
                     btnColor = Colors.red;
-                    btnText = 'LOGOUT';
-                  } else if (checkStatus.errors.nextRecordType == 3) {
+                    btnText = ManagerStrings.logout;
+                  } else if (checkStatus.errors.nextRecordType ==
+                      NextRecordTypeConstants.thirdNextRecordType) {
                     btnColor = Colors.red;
-                    btnText = 'BREAK OUT';
-                  } else if (checkStatus.errors.nextRecordType == 4) {
+                    btnText = ManagerStrings.breakOut;
+                  } else if (checkStatus.errors.nextRecordType ==
+                      NextRecordTypeConstants.fourthNextRecordType) {
                     btnColor = Colors.green;
-                    btnText = 'BREAK IN';
+                    btnText = ManagerStrings.breakIN;
                   } else {
                     btnColor = Colors.red;
-                    btnText = '';
+                    btnText = ManagerStrings.empty;
                   }
 
                   return MainButtonCustom(
@@ -176,7 +189,8 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
 
                             if (mounted) {
                               showSnackBar(res.errors.errorDescription, context,
-                                  color: res.errors.errorCode == 0
+                                  color: res.errors.errorCode ==
+                                          Constants.errorCode
                                       ? Colors.green
                                       : Colors.red);
                               Provider.of<CheckStatusProvider>(context,
@@ -192,24 +206,24 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                   return buttonShimmer;
                 }
               }),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: ManagerHeight.h12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CheckInOutContainer(
                     icon: FontAwesomeIcons.arrowRightToBracket,
-                    title: "Last Check-In",
-                    date: 'soon',
+                    title: ManagerStrings.lastCheckIn,
+                    date: ManagerStrings.soon,
                   ),
-                  const SizedBox(
-                    width: 15,
+                  SizedBox(
+                    width: ManagerWidth.w15,
                   ),
                   CheckInOutContainer(
                     icon: FontAwesomeIcons.arrowRightFromBracket,
-                    title: "Last Check-Out",
-                    date: 'soon',
+                    title: ManagerStrings.lastCheckOut,
+                    date: ManagerStrings.soon,
                   ),
                 ],
               )

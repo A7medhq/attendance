@@ -18,3 +18,22 @@ TextStyle kHintText = const TextStyle(color: Colors.grey, fontSize: 14);
 InputBorder kOutlineBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
     borderSide: const BorderSide(width: 1, color: Colors.grey));
+
+class Constants {
+  static const double deviceWidth = 375;
+  static const double deviceHeight = 812;
+  static const int dateTimeDuration = 2;
+  static const double latLnglatitude = 0;
+  static const double latLnglongitude = 0;
+  static const double zoom15 = 15.4746;
+  static const double zoom18 = 18;
+  static const int flex3 = 3;
+}
+
+class NextRecordTypeConstants {
+  static const int zeroNextRecordType = 0;
+  static const int firstNextRecordType = 1;
+  static const int secondNextRecordType = 2;
+  static const int thirdNextRecordType = 3;
+  static const int fourthNextRecordType = 4;
+}
