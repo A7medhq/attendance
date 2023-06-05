@@ -33,7 +33,9 @@ class Constants {
       EdgeInsets.fromLTRB(8, 32, 8, 8);
   static const double elevationCard = 2;
   static const EdgeInsets cardPadding = EdgeInsets.fromLTRB(0, 12.0, 0, 6);
-  static const EdgeInsets cardPadding = EdgeInsets.fromLTRB(0, 12.0, 0, 6);
+  static const EdgeInsets dashBoardPadding =
+      EdgeInsets.only(top: 0, right: 24.0, left: 24.0, bottom: 8);
+  static const double cardVerticalPadding = 12.0;
 }
 
 class NextRecordTypeConstants {
