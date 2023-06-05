@@ -27,4 +27,9 @@ class ManagerStrings {
   static const String lastCheckIn = "Last Check-In";
   static const String soon = "soon";
   static const String lastCheckOut = "Last Check-Out";
+  static const String attendees = 'Attendees';
+  static const String absent = 'Absent';
+  static const String randomDate = '1 - 20 January';
+  static const String late = 'Late';
+  static const String location = 'Location';
 }
