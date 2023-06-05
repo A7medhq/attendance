@@ -1,4 +1,5 @@
 class ManagerStrings {
+  static const String attendanceApp = 'Attendance App';
   static const String groupValue = '1';
   static const String dateFormatYMD = 'yyyy-MM-dd';
   static const String dateFormatHMA = 'h:mm a';
@@ -16,4 +17,14 @@ class ManagerStrings {
   static const String approve = 'Approve';
   static const String reject = 'Reject';
   static const String error = 'ERROR';
+  static const String marker = 'marker';
+  static const String noLocation = 'No Location for this user';
+  static const String login = 'LOGIN';
+  static const String logout = 'LOGOUT';
+  static const String breakOut = 'BREAK OUT';
+  static const String breakIN = 'BREAK IN';
+  static const String empty = '';
+  static const String lastCheckIn = "Last Check-In";
+  static const String soon = "soon";
+  static const String lastCheckOut = "Last Check-Out";
 }

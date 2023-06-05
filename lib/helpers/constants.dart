@@ -28,6 +28,7 @@ class Constants {
   static const double zoom15 = 15.4746;
   static const double zoom18 = 18;
   static const int flex3 = 3;
+  static const int errorCode = 0;
 }
 
 class NextRecordTypeConstants {
