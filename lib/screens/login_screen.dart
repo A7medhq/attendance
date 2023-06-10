@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:attendance/components/text_button.dart';
-import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/screens/loading_screen.dart';
 import 'package:attendance/services/login_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -14,6 +13,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../components/show_snack_bar_custom.dart';
+import '../helpers/manager_color.dart';
 import '../services/auth.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -79,7 +79,8 @@ class _LogInScreenState extends State<LogInScreen> {
     if (res != null) {
       if (res['status'] == 'success') {
         if (mounted) {
-          showSnackBar("${res['message']}", context, color: kPrimaryColor);
+          showSnackBar("${res['message']}", context,
+              color: ManagerColor.kPrimaryColor);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const LoadingScreen()));
         }
@@ -121,7 +122,7 @@ class _LogInScreenState extends State<LogInScreen> {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
-        backgroundColor: kScaffoldColor,
+        backgroundColor: ManagerColor.kScaffoldColor,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -243,7 +244,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Checkbox(
-                            activeColor: kPrimaryColor,
+                            activeColor: ManagerColor.kPrimaryColor,
                             value: rememberMeCheck,
                             onChanged: (v) {
                               setState(() {
@@ -271,7 +272,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         Center(
                           child: Material(
                             borderRadius: BorderRadius.circular(50),
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                             child: InkWell(
                               customBorder: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
@@ -355,9 +356,9 @@ class _LogInScreenState extends State<LogInScreen> {
                               height: 60,
                               width: 60,
                               padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: kPrimaryColor,
+                                color: ManagerColor.kPrimaryColor,
                               ),
                               child: Center(
                                 child: Icon(

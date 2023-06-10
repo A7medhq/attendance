@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../helpers/manager_color.dart';
+
 class ButtonWidget extends StatelessWidget {
   ButtonWidget({super.key, this.text, this.num = 190.0, this.color});
   String? text;
@@ -12,15 +14,15 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: num,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: color == null ? kPrimaryColor : color,
+        color: color ?? ManagerColor.kPrimaryColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
         child: Text(
           '$text',
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),

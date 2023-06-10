@@ -36,4 +36,13 @@ class ManagerStrings {
   static const String welcome = 'Welcome';
   static const String enterYourCompanyCode = 'Enter your company code';
   static const String next = 'Next';
+  static const String zero = '0';
+  static const String permissionLeaveType = 'Permission leave type';
+  static const String chooseYoursPrmType = 'Choose yours permission leave type';
+  static const String enterNmDays = 'Enter number of days';
+  static const String yourPermBalance = 'Your permission balance';
+  static const String hintText = '7';
+  static const String enterStartDate = 'Enter start date';
+  static const String endDate = 'End date';
+  static const String sendRequest = 'Send request';
 }

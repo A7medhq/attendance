@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../helpers/manager_color.dart';
+
 class DatePickerCustom extends StatefulWidget {
   TextEditingController? controller;
 
@@ -24,9 +26,9 @@ class _DatePickerCustomState extends State<DatePickerCustom> {
             enabledBorder: kOutlineBorder,
             focusedBorder: kOutlineBorder,
 
-            suffixIcon: Icon(
+            suffixIcon: const Icon(
               FontAwesomeIcons.calendar,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ), //icon of text field
           ),
           readOnly: true, // when true user cannot edit text
@@ -40,14 +42,15 @@ class _DatePickerCustomState extends State<DatePickerCustom> {
                 builder: (context, child) {
                   return Theme(
                     data: Theme.of(context).copyWith(
-                      colorScheme: ColorScheme.light(
-                        primary: kPrimaryColor, // <-- SEE HERE
+                      colorScheme: const ColorScheme.light(
+                        primary: ManagerColor.kPrimaryColor, // <-- SEE HERE
                         onPrimary: Colors.white, // <-- SEE HERE
-                        onSurface: kDarkColor, // <-- SEE HERE
+                        onSurface: ManagerColor.black, // <-- SEE HERE
                       ),
                       textButtonTheme: TextButtonThemeData(
                         style: TextButton.styleFrom(
-                          foregroundColor: kPrimaryColor, // button text color
+                          foregroundColor:
+                              ManagerColor.kPrimaryColor, // button text color
                         ),
                       ),
                     ),

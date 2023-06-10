@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../helpers/manager_color.dart';
+
 class HeaderDrawer extends StatelessWidget {
   HeaderDrawer({Key? key}) : super(key: key);
 
@@ -49,8 +51,11 @@ class HeaderDrawer extends StatelessWidget {
             offset: const Offset(0, 7),
           ),
         ],
-        gradient: LinearGradient(
-          colors: [kPrimaryColor, const Color.fromARGB(255, 72, 104, 210)],
+        gradient: const LinearGradient(
+          colors: [
+            ManagerColor.kPrimaryColor,
+            Color.fromARGB(255, 72, 104, 210)
+          ],
         ),
       ),
       child: InkWell(

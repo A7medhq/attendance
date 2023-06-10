@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
 
 class CheckInOutContainer extends StatelessWidget {
   final String title;
@@ -30,21 +31,23 @@ class CheckInOutContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Icon(icon,
-                size: 50, color: isEnabled ? kPrimaryColor : Colors.grey),
-            SizedBox(
+                size: 50,
+                color: isEnabled ? ManagerColor.kPrimaryColor : Colors.grey),
+            const SizedBox(
               height: 10,
             ),
             Text(
               title,
-              style: TextStyle(color: isEnabled ? kPrimaryColor : Colors.grey),
+              style: TextStyle(
+                  color: isEnabled ? ManagerColor.kPrimaryColor : Colors.grey),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               date,
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),

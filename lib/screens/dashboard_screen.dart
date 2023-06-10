@@ -27,7 +27,7 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: ManagerRadius.r50,
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: ManagerColor.kPrimaryColor,
                   ),
                   Padding(
                     padding: Constants.dashBoardShimmerPadding,
@@ -45,9 +45,9 @@ class DashboardScreen extends StatelessWidget {
               Column(
                 children: [
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       FontAwesomeIcons.at,
-                      color: kPrimaryColor,
+                      color: ManagerColor.kPrimaryColor,
                     ),
                     title: Container(
                       color: ManagerColor.grey,
@@ -55,9 +55,9 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       FontAwesomeIcons.mobileScreen,
-                      color: kPrimaryColor,
+                      color: ManagerColor.kPrimaryColor,
                     ),
                     title: Container(
                       color: ManagerColor.grey,
@@ -114,7 +114,7 @@ class DashboardScreen extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     radius: ManagerRadius.r50,
-                                    backgroundColor: kPrimaryColor,
+                                    backgroundColor: ManagerColor.kPrimaryColor,
                                     backgroundImage:
                                         NetworkImage(userInfo.image!),
                                   ),
@@ -131,9 +131,9 @@ class DashboardScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   ListTile(
-                                    leading: Icon(
+                                    leading: const Icon(
                                       FontAwesomeIcons.at,
-                                      color: kPrimaryColor,
+                                      color: ManagerColor.kPrimaryColor,
                                     ),
                                     title: Text(
                                       userInfo.notifyEmail!,
@@ -142,9 +142,9 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                   ),
                                   ListTile(
-                                    leading: Icon(
+                                    leading: const Icon(
                                       FontAwesomeIcons.mobileScreen,
-                                      color: kPrimaryColor,
+                                      color: ManagerColor.kPrimaryColor,
                                     ),
                                     title: Text(userInfo.notifyMobile!),
                                   )

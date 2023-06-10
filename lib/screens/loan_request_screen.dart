@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../components/date_picker_custom.dart';
 import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
 
 class LoanRequestScreen extends StatefulWidget {
   static const id = '/loanRequestScreen';
@@ -40,7 +41,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kScaffoldColor,
+        backgroundColor: ManagerColor.kScaffoldColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(

@@ -1,4 +1,3 @@
-import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/models/get_user_data_model.dart';
 import 'package:attendance/screens/update_image_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../components/text_button.dart';
+import '../helpers/manager_color.dart';
 import '../providers/user_data_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -15,8 +15,8 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
   Widget headCardShimmer = Shimmer.fromColors(
-      baseColor: Color(0xff506ed2),
-      highlightColor: Color(0xff203781),
+      baseColor: const Color(0xff506ed2),
+      highlightColor: const Color(0xff203781),
       child: Column(
         children: [
           Row(
@@ -74,10 +74,10 @@ class ProfileScreen extends StatelessWidget {
         shrinkWrap: true,
         children: [
           ListTile(
-            selectedTileColor: kLightColor,
-            leading: Icon(
+            selectedTileColor: ManagerColor.kLightColor,
+            leading: const Icon(
               FontAwesomeIcons.mobileScreen,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ),
             title: const Text(
               'Mobile',
@@ -92,9 +92,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               FontAwesomeIcons.at,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ),
             title: const Text(
               'Email',
@@ -107,9 +107,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: FaIcon(
+            leading: const FaIcon(
               FontAwesomeIcons.buildingColumns,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ),
             title: const Text(
               'Bank account',
@@ -122,9 +122,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: FaIcon(
+            leading: const FaIcon(
               FontAwesomeIcons.buildingUser,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ),
             title: const Text(
               'Bank adress',
@@ -137,9 +137,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.file_present,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ),
             title: const Text(
               'Employee identifier',
@@ -174,10 +174,10 @@ class ProfileScreen extends StatelessWidget {
                     offset: const Offset(0, 7),
                   ),
                 ],
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [
-                    kPrimaryColor,
-                    const Color.fromARGB(255, 72, 104, 210)
+                    ManagerColor.kPrimaryColor,
+                    Color.fromARGB(255, 72, 104, 210)
                   ],
                 ),
               ),
@@ -324,10 +324,10 @@ class ProfileScreen extends StatelessWidget {
                       shrinkWrap: true,
                       children: [
                         ListTile(
-                          selectedTileColor: kLightColor,
-                          leading: Icon(
+                          selectedTileColor: ManagerColor.kLightColor,
+                          leading: const Icon(
                             FontAwesomeIcons.mobileScreen,
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                           ),
                           title: const Text(
                             'Mobile',
@@ -338,9 +338,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const Divider(),
                         ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             FontAwesomeIcons.at,
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                           ),
                           title: const Text(
                             'Email',
@@ -351,9 +351,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const Divider(),
                         ListTile(
-                          leading: FaIcon(
+                          leading: const FaIcon(
                             FontAwesomeIcons.buildingColumns,
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                           ),
                           title: const Text(
                             'Bank account',
@@ -364,9 +364,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const Divider(),
                         ListTile(
-                          leading: FaIcon(
+                          leading: const FaIcon(
                             FontAwesomeIcons.buildingUser,
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                           ),
                           title: const Text(
                             'Bank adress',
@@ -377,9 +377,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const Divider(),
                         ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.file_present,
-                            color: kPrimaryColor,
+                            color: ManagerColor.kPrimaryColor,
                           ),
                           title: const Text(
                             'Employee identifier',

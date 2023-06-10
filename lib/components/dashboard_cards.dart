@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
 
 class MyCard extends StatelessWidget {
   String title;
@@ -19,7 +20,7 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: Container(
+      child: SizedBox(
         height: 140,
         child: Card(
           color: Colors.white,
@@ -27,7 +28,7 @@ class MyCard extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -35,14 +36,15 @@ class MyCard extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      color: kDarkColor,
+                      color: ManagerColor.black,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       title,
-                      style: TextStyle(color: kDarkColor, fontSize: 14),
+                      style: const TextStyle(
+                          color: ManagerColor.black, fontSize: 14),
                     ),
                   ],
                 ),

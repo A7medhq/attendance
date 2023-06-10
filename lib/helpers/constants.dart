@@ -1,21 +1,32 @@
+import 'package:attendance/helpers/manager_fonts.dart';
+import 'package:attendance/helpers/manager_sizes.dart';
 import 'package:flutter/material.dart';
 
-// ===================== C O L O R S ===========================
-Color kDarkColor = Colors.black;
-Color kLightColor = const Color.fromARGB(255, 235, 233, 233);
+import 'manager_color.dart';
 
 // ===================== T E X T S ===============================
 
-TextStyle kHeadText =
-    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
+TextStyle kHeadText = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: ManagerFontSize.s18,
+);
 
-TextStyle kHintText = const TextStyle(color: Colors.grey, fontSize: 14);
+TextStyle kHintText = TextStyle(
+  color: ManagerColor.grey,
+  fontSize: ManagerFontSize.s14,
+);
 
 // ===================== I N P U T S ===============================
 
 InputBorder kOutlineBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8),
-    borderSide: const BorderSide(width: 1, color: Colors.grey));
+  borderRadius: BorderRadius.circular(
+    ManagerRadius.r8,
+  ),
+  borderSide: BorderSide(
+    width: ManagerWidth.w1,
+    color: ManagerColor.grey,
+  ),
+);
 
 class Constants {
   static const double deviceWidth = 375;
@@ -34,6 +45,7 @@ class Constants {
   static const EdgeInsets dashBoardPadding =
       EdgeInsets.only(top: 0, right: 24.0, left: 24.0, bottom: 8);
   static const double cardVerticalPadding = 12.0;
+  static const int maxLines = 1;
 }
 
 class NextRecordTypeConstants {

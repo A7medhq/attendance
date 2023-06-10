@@ -25,6 +25,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
 import 'drawer/header_drawer.dart';
+import 'helpers/manager_color.dart';
 import 'helpers/manager_strings.dart';
 
 void main() async {
@@ -68,8 +69,10 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.poppins().fontFamily,
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-                seedColor: kPrimaryColor, background: Colors.grey.shade200),
-            appBarTheme: AppBarTheme(backgroundColor: kPrimaryColor),
+                seedColor: ManagerColor.kPrimaryColor,
+                background: Colors.grey.shade200),
+            appBarTheme:
+                const AppBarTheme(backgroundColor: ManagerColor.kPrimaryColor),
           ),
           routes: {
             LoadingScreen.id: (context) => const LoadingScreen(),
@@ -290,8 +293,8 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(15.0),
             child: SwitchListTile(
                 title: const Text('Use Fingerprint'),
-                activeColor: kPrimaryColor,
-                activeTrackColor: kPrimaryColor.withAlpha(50),
+                activeColor: ManagerColor.kPrimaryColor,
+                activeTrackColor: ManagerColor.kPrimaryColor.withAlpha(50),
                 value: isBiometricsEnabled,
                 onChanged: (value) async {
                   if (await AuthService().checkBiometricsSupp() &&

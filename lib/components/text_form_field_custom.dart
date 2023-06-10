@@ -1,6 +1,8 @@
 import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/manager_color.dart';
+
 class TextFormFieldCustom extends StatelessWidget {
   final String text;
   bool isReadOnly;
@@ -15,8 +17,8 @@ class TextFormFieldCustom extends StatelessWidget {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         hintText: text,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: kLightColor),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: ManagerColor.kLightColor),
         ),
       ),
     );
