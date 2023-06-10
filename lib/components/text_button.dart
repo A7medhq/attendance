@@ -1,5 +1,6 @@
-import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../helpers/manager_color.dart';
 
 class TextButtonWidget extends StatelessWidget {
   TextButtonWidget({
@@ -17,7 +18,7 @@ class TextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: kPrimaryColor,
+          foregroundColor: ManagerColor.kPrimaryColor,
         ),
         onPressed: onPressed,
         child: Text(

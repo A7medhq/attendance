@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../helpers/manager_color.dart';
+
 class TimePickerCustom extends StatefulWidget {
   int? addedHours;
   TextEditingController? controller;
@@ -26,9 +28,9 @@ class _TimePickerCustomState extends State<TimePickerCustom> {
             enabledBorder: kOutlineBorder,
             focusedBorder: kOutlineBorder,
 
-            suffixIcon: Icon(
+            suffixIcon: const Icon(
               FontAwesomeIcons.clock,
-              color: kPrimaryColor,
+              color: ManagerColor.kPrimaryColor,
             ), //icon of text field
           ),
           readOnly: true, // when true user cannot edit text

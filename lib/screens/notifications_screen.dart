@@ -1,9 +1,8 @@
 import 'package:attendance/components/text_button.dart';
-import 'package:attendance/helpers/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../helpers/manager_color.dart';
 
 class NotificationsScreen extends StatefulWidget {
   // static const id = '/notificationsScreen';
@@ -19,9 +18,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'Notifications',
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
           ),
         ),
@@ -32,13 +31,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Color(0xfff2f2f2),
+                color: const Color(0xfff2f2f2),
                 borderRadius: BorderRadius.circular(
                   25.0,
                 ),
@@ -47,15 +46,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 length: 3,
                 child: TabBar(
                   indicator: BoxDecoration(
-                    color: kPrimaryColor,
+                    color: ManagerColor.kPrimaryColor,
                     borderRadius: BorderRadius.circular(
                       25.0,
                     ),
                   ),
                   labelColor: Colors.white,
-                  indicatorColor: kPrimaryColor,
-                  unselectedLabelColor: kDarkColor,
-                  tabs: [
+                  indicatorColor: ManagerColor.kPrimaryColor,
+                  unselectedLabelColor: ManagerColor.black,
+                  tabs: const [
                     Tab(
                       text: 'All',
                     ),
@@ -69,7 +68,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -77,7 +76,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Today',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -88,25 +87,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemCount: 10,
                 itemBuilder: (context, index) => ListTile(
-                  selectedTileColor: kLightColor,
+                  selectedTileColor: ManagerColor.kLightColor,
                   tileColor: Colors.white,
                   isThreeLine: true,
-                  leading: Icon(
+                  leading: const Icon(
                     FontAwesomeIcons.solidCircleCheck,
-                    color: kPrimaryColor,
+                    color: ManagerColor.kPrimaryColor,
                   ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Text(
                         'Location Requesr Approved',
                         maxLines: 1,
@@ -118,7 +117,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       ),
                     ],
                   ),
-                  subtitle: Text(
+                  subtitle: const Text(
                     'Your location request was approved by your manager administration',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

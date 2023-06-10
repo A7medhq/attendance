@@ -1,4 +1,5 @@
 import 'package:attendance/components/date_picker_custom.dart';
+import 'package:attendance/helpers/manager_color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -95,12 +96,14 @@ class _UserPermessionRequestScreenState
                 TextField(
                     controller: otherTextFieldController,
                     enabled: isTextFieldEnabled,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: kPrimaryColor),
+                        borderSide:
+                            BorderSide(color: ManagerColor.kPrimaryColor),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: kPrimaryColor),
+                        borderSide:
+                            BorderSide(color: ManagerColor.kPrimaryColor),
                       ),
                     )),
               if (!isTextFieldEnabled)

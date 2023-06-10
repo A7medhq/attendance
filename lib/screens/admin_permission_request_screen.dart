@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../components/main_button_custom.dart';
 import '../components/list_tile_custom.dart';
 import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
 import '../helpers/manager_fonts.dart';
 import '../helpers/manager_sizes.dart';
 import '../helpers/manager_strings.dart';
@@ -142,7 +143,7 @@ class _AdminPermessionRequestScreenState
                       isOutlined: true,
                       text: ManagerStrings.reject,
                       backgroudColor: Colors.white,
-                      textColor: kPrimaryColor,
+                      textColor: ManagerColor.kPrimaryColor,
                       onTap: () {}),
                 ],
               )

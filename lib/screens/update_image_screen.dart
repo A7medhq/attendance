@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 
 import '../components/text_button.dart';
 import '../components/text_field_custom.dart';
-import '../helpers/constants.dart';
-import '../helpers/show_snack_bar_custom.dart';
+import '../components/show_snack_bar_custom.dart';
+import '../helpers/manager_color.dart';
 import '../models/get_user_data_model.dart';
 import '../services/update_user_information.dart';
 
@@ -100,7 +100,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                 children: [
                   const Spacer(),
                   CircleAvatar(
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: ManagerColor.kPrimaryColor,
                     backgroundImage: _imageFile == null
                         ? NetworkImage(widget.image!)
                         : FileImage(File(_imageFile!.path)) as ImageProvider,
@@ -131,7 +131,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                           _notify_mobile.text,
                         ).then(
                           (value) => showSnackBar(value, context,
-                              color: kPrimaryColor),
+                              color: ManagerColor.kPrimaryColor),
                         );
                         if (mounted) {
                           Provider.of<UserInformationProvider>(context,
@@ -151,7 +151,7 @@ class _UpdateImageScreenState extends State<UpdateImageScreen> {
                           if (response.statusCode == 200) {
                             if (mounted) {
                               showSnackBar('Updated successfully', context,
-                                  color: kPrimaryColor);
+                                  color: ManagerColor.kPrimaryColor);
 
                               Provider.of<UserInformationProvider>(context,
                                       listen: false)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
 
 class MainButtonCustom extends StatefulWidget {
   final Function()? onTap;
@@ -34,7 +35,7 @@ class _MainButtonCustomState extends State<MainButtonCustom> {
         child: Material(
           borderRadius: BorderRadius.circular(50),
           color: widget.backgroudColor == null
-              ? kPrimaryColor
+              ? ManagerColor.kPrimaryColor
               : widget.isOutlined
                   ? Colors.white
                   : widget.backgroudColor,
@@ -47,7 +48,7 @@ class _MainButtonCustomState extends State<MainButtonCustom> {
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: kPrimaryColor,
+                    color: ManagerColor.kPrimaryColor,
                     width: 1.5,
                     style: widget.isOutlined
                         ? BorderStyle.solid
