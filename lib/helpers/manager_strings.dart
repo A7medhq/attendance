@@ -32,5 +32,8 @@ class ManagerStrings {
   static const String randomDate = '1 - 20 January';
   static const String late = 'Late';
   static const String location = 'Location';
-  static const String location = 'Location';
+  static const String myBox = 'myBox';
+  static const String welcome = 'Welcome';
+  static const String enterYourCompanyCode = 'Enter your company code';
+  static const String next = 'Next';
 }

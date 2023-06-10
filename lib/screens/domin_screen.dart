@@ -1,8 +1,11 @@
+import 'package:attendance/helpers/manager_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../helpers/constants.dart';
+import '../helpers/manager_color.dart';
+import '../helpers/manager_sizes.dart';
+import '../helpers/manager_strings.dart';
 
 class DomainScreen extends StatefulWidget {
   static const id = '/domainScreen';
@@ -14,62 +17,65 @@ class DomainScreen extends StatefulWidget {
 
 class _DomainScreenState extends State<DomainScreen> {
   TextEditingController domainController = TextEditingController();
-  final _myBox = Hive.box('myBox');
-  String message = '';
+  final _myBox = Hive.box(ManagerStrings.myBox);
+  String message = ManagerStrings.empty;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: ManagerColor.kScaffoldColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 25),
+          padding: EdgeInsets.symmetric(
+            vertical: ManagerHeight.h16,
+            horizontal: ManagerWidth.w25,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text('Welcome',
+              Text(ManagerStrings.welcome,
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: ManagerFontSize.s40,
                     fontWeight: FontWeight.bold,
                   )),
               TextFormField(
                 controller: domainController,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  labelText: 'Enter your company code',
+                  labelText: ManagerStrings.enterYourCompanyCode,
                   prefixIcon: const Icon(
                     Icons.domain,
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(ManagerRadius.r50),
                   ),
                 ),
               ),
               Text(
                 message,
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(color: ManagerColor.red),
               ),
               Material(
-                borderRadius: BorderRadius.circular(50),
-                color: kPrimaryColor,
+                borderRadius: BorderRadius.circular(ManagerRadius.r50),
+                color: ManagerColor.kPrimaryColor,
                 child: InkWell(
                   customBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(ManagerRadius.r50),
                   ),
                   onTap: () {},
                   child: Container(
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(ManagerRadius.r50),
                     ),
-                    height: 60,
+                    height: ManagerHeight.h60,
                     width: double.infinity,
-                    child: const Center(
+                    child: Center(
                         child: Text(
-                      'Next',
+                      ManagerStrings.next,
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
+                          color: ManagerColor.white,
+                          fontSize: ManagerFontSize.s17,
                           fontWeight: FontWeight.bold),
                     )),
                   ),

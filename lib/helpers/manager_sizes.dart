@@ -17,6 +17,7 @@ class ManagerWidth {
   static double w130 = SizeUtil.setWidth(130);
   static double w16 = SizeUtil.setWidth(16);
   static double w12 = SizeUtil.setWidth(12);
+  static double w25 = SizeUtil.setWidth(25);
 }
 
 class ManagerRadius {
