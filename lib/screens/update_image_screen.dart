@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../components/text_button.dart';
 import '../components/text_field_custom.dart';
 import '../helpers/constants.dart';
-import '../helpers/show_snack_bar_custom.dart';
+import '../components/show_snack_bar_custom.dart';
 import '../models/get_user_data_model.dart';
 import '../services/update_user_information.dart';
 

@@ -13,7 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../helpers/show_snack_bar_custom.dart';
+import '../components/show_snack_bar_custom.dart';
 import '../services/auth.dart';
 
 class LogInScreen extends StatefulWidget {

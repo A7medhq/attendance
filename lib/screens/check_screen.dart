@@ -16,7 +16,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../components/check_in_out_container.dart';
 import '../helpers/manager_sizes.dart';
-import '../helpers/show_snack_bar_custom.dart';
+import '../components/show_snack_bar_custom.dart';
 import '../models/logrow_model.dart';
 
 class CheckInOutScreen extends StatefulWidget {
