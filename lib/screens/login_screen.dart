@@ -37,7 +37,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   bool isLoading = false;
 
-  Map credentials = {};
+  Map? credentials;
 
   @override
   void initState() {
@@ -46,12 +46,16 @@ class _LogInScreenState extends State<LogInScreen> {
     }
     if (_myBox.get('credentials') != null) {
       credentials = _myBox.get('credentials');
-
-      emailController = TextEditingController(text: credentials['email']);
-      passwordController = TextEditingController(text: credentials['password']);
     }
+
     if (_myBox.get('rememberMeCheck') != null) {
       if (_myBox.get('rememberMeCheck') == true) {
+        if (credentials != null) {
+          emailController = TextEditingController(text: credentials!['email']);
+          passwordController =
+              TextEditingController(text: credentials!['password']);
+        }
+
         rememberMeCheck = true;
       } else {
         rememberMeCheck = false;
@@ -75,7 +79,6 @@ class _LogInScreenState extends State<LogInScreen> {
     // if (form!.validate()) {
     //   final email = emailController.text;
     // }
-
     if (res != null) {
       if (res['status'] == 'success') {
         if (mounted) {
@@ -87,12 +90,10 @@ class _LogInScreenState extends State<LogInScreen> {
         _myBox.put('token', 'Bearer ${res['data']['token']}');
 
         _myBox.put('userId', '${res['data']['user']['id']}');
-
+        _myBox.put('credentials', {'email': email, 'password': password});
         if (rememberMeCheck == true) {
-          _myBox.put('credentials', {'email': email, 'password': password});
           _myBox.put('rememberMeCheck', true);
         } else {
-          _myBox.put('credentials', null);
           _myBox.put('rememberMeCheck', false);
         }
         return true;
@@ -112,6 +113,18 @@ class _LogInScreenState extends State<LogInScreen> {
         setState(() {
           isValidate = false;
         });
+      }
+    } else {
+      if (mounted) {
+        showSnackBar(
+          'An Error Occurred',
+          context,
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height - 100,
+              right: 20,
+              left: 20),
+          color: Colors.red,
+        );
       }
     }
     return false;
@@ -332,16 +345,18 @@ class _LogInScreenState extends State<LogInScreen> {
                                   ConnectivityResult.none) {
                                 bool isAuthenticated =
                                     await AuthService().authenticateUser();
-                                if (isAuthenticated) {
-                                  loginMethod(
-                                          email: emailController.text,
-                                          password: passwordController.text)
-                                      .then((value) {});
-                                } else {
-                                  if (mounted) {
-                                    showSnackBar(
-                                        'Authentication failed.', context,
-                                        color: Colors.red);
+                                if (credentials != null) {
+                                  if (isAuthenticated) {
+                                    loginMethod(
+                                            email: credentials!['email'],
+                                            password: credentials!['password'])
+                                        .then((value) {});
+                                  } else {
+                                    if (mounted) {
+                                      showSnackBar(
+                                          'Authentication failed.', context,
+                                          color: Colors.red);
+                                    }
                                   }
                                 }
                               } else {

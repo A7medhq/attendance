@@ -38,8 +38,8 @@ class AuthService {
         isAuthenticated = await _localAuthentication.authenticate(
             localizedReason: 'Scan your fingerprint to authenticate',
             options: const AuthenticationOptions(
-              biometricOnly: true,
-            ));
+                // biometricOnly: true,
+                ));
       } on PlatformException catch (e) {
         print(e);
       }
