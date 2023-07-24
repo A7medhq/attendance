@@ -1,3 +1,4 @@
+import 'package:attendance/components/show_snack_bar_custom.dart';
 import 'package:attendance/helpers/constants.dart';
 import 'package:attendance/providers/admin_data_provider.dart';
 import 'package:attendance/providers/check_in_out_status_provider.dart';
@@ -24,6 +25,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:provider/provider.dart';
+
 import 'drawer/header_drawer.dart';
 import 'helpers/manager_color.dart';
 import 'helpers/manager_strings.dart';
@@ -136,12 +138,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               child: const Text('Use My Fingerprint'),
-              onPressed: () {
-                setState(() {
-                  isBiometricsEnabled = true;
-                  _myBox.put('isBiometricsEnabled', true);
-                });
-                Navigator.of(context).pop();
+              onPressed: () async {
+                if (await AuthService().checkBiometricsSupp() &&
+                    await AuthService().checkBiometricsEnabled()) {
+                  setState(() {
+                    isBiometricsEnabled = true;
+                    _myBox.put('isBiometricsEnabled', true);
+                  });
+                } else if (await AuthService().checkBiometricsSupp() &&
+                    !await AuthService().checkBiometricsEnabled() &&
+                    isBiometricsEnabled == false) {
+                  OpenSettings.openBiometricEnrollSetting();
+                } else if (!await AuthService().checkBiometricsSupp()) {
+                  if (mounted) {
+                    showSnackBar(
+                        'This Feature is not Supported on Your Device', context,
+                        color: Colors.red);
+                  }
+                }
+
+                if (mounted) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ],
@@ -314,6 +332,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       !await AuthService().checkBiometricsEnabled() &&
                       isBiometricsEnabled == false) {
                     OpenSettings.openBiometricEnrollSetting();
+                  } else if (!await AuthService().checkBiometricsSupp()) {
+                    if (mounted) {
+                      showSnackBar(
+                          'This Feature is not Supported on Your Device',
+                          context,
+                          color: Colors.red);
+
+                      Navigator.of(context).pop();
+                    }
                   }
                 }),
           ),
